@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="drag_min_distince">10dip</dimen>
+    <dimen name="correctWidth">30dip</dimen>
+    <dimen name="left_distince">200dip</dimen>
+    <!-- 菜单的宽度，该值为left_distince与correctWidth的和 -->
+    <dimen name="menu_width">230dip</dimen>
+    <!-- Activity设置为对话框属性时（Theme.Dialog）时，改变其在屏幕中的位置 -->
+    <dimen name="playqueue_dialog_marginright">0dp</dimen>
+    <dimen name="playqueue_dialog_marginbottom">0dp</dimen>
+    <dimen name="playqueue_dialog_width">360dp</dimen>
+    <dimen name="playqueue_dialog_height">300dp</dimen>
+    <dimen name="playqueue_dialog_select_item_from_top">90dp</dimen>
+    <dimen name="item_with">84dp</dimen>
+    <!-- 日期高度为calender_item_height*6 -->
+    <dimen name="calender_height">240dip</dimen>
+    <dimen name="mindistance">10dip</dimen>
+    <dimen name="calender_item_height">50dip</dimen>
+    <dimen name="calender_item_text_height">28dip</dimen>
+</resources>

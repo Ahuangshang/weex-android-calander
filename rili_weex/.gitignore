@@ -1,0 +1,11 @@
+/node_modules
+/dist
+/config.js
+/.idea
+/.sass-cache
+/src/css/.sass-cache
+/src/css/*.css
+/src/css/*.css.map
+*log
+**/.DS_Store
+/temp

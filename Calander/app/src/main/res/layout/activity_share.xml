@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:background="@drawable/share_bg" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:gravity="center"
+            android:text="王朝黄历分享"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <cn.ltwc.cft.view.MyViewPager
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/indicator"
+            android:layout_below="@id/title"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
+
+        <cn.ltwc.cft.view.PageIndicatorView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#26000000" />
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/share_cancel_selector"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="#b2b2b2"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

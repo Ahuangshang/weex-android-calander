@@ -1,0 +1,12 @@
+﻿*.class
+build/
+.idea/
+.gradle/
+.hprof/
+bin/
+gen/
+*.iml
+local.properties
+.DS_Store 
+*.apk
+BuglyUploadLog.txt

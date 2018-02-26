@@ -1,0 +1,7 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="mei_nv_img_style">
+        <item name="android:background">@drawable/item_meinv_bg_21</item>
+    </style>
+
+</resources>

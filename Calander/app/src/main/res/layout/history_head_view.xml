@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/all_item"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:background="?android:attr/selectableItemBackground" >
+
+        <RelativeLayout
+            android:id="@+id/left"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:contentDescription="@null"
+                android:id="@+id/dingwei"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/lishid" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/dingwei"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:background="#f45531" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/left"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/head_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="38dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#f45531" />
+    </RelativeLayout>
+
+</LinearLayout>

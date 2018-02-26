@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <cn.ltwc.cft.view.TitleView
+        android:id="@+id/zhainan_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <cn.ltwc.viewutils.recycleviewutils.fresh.MRefreshView
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:scrollbarThumbVertical="@drawable/scrol_bar"
+            android:scrollbars="vertical" />
+    </cn.ltwc.viewutils.recycleviewutils.fresh.MRefreshView>
+
+</LinearLayout>

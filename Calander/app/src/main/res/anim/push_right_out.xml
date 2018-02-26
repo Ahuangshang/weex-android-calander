@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 日历右边滑出动画 -->
+    <!-- 位置移动 -->
+    <translate
+        android:duration="500"
+        android:fromXDelta="0"
+        android:toXDelta="100%p" />
+   <!-- 渐变透明度 -->
+    <alpha
+        android:duration="500"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.5" />
+
+</set>

@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+
+    defaultConfig {
+        minSdkVersion project.appMinSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(path: ':bitmaputils')
+    compile "com.android.support:appcompat-v7:${project.supportLibVersion}"
+    compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
+    compile "com.android.support:recyclerview-v7:${project.supportLibVersion}"
+}

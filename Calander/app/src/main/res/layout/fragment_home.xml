@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/main_color">
+
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/Current_mouth"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <!-- 实现跑马灯效果显示需要设置以下属性(缺一不可) -->
+        <!-- android:ellipsize="marquee" -->
+        <!-- android:focusable="true" -->
+        <!-- android:focusableInTouchMode="true" -->
+        <!-- android:singleLine="true" -->
+        <!-- android:marqueeRepeatLimit="marquee_forever" 无限滚动 -->
+
+        <ImageView
+            android:id="@+id/weather"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/month"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+
+            android:src="@drawable/today" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- 日历视图 -->
+        <cn.ltwc.cft.view.ContainerLayout
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollbars="none">
+
+            <include
+                android:id="@+id/rili"
+                layout="@layout/calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </cn.ltwc.cft.view.ContainerLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
