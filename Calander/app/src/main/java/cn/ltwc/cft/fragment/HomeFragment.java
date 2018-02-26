@@ -40,7 +40,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initView() {
         if (view != null) {
-            HomeFragmentHelper.getInstance().init(view);
+            HomeFragmentHelper.getInstance().init(view, c);
             lotterMore = view.findViewById(R.id.more_lotter);
             nongLiInfo = view.findViewById(R.id.nongli_show);
         }
@@ -55,9 +55,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void bindView() {
-        nongLiInfo.setOnClickListener(this);
-        lotterMore.setOnClickListener(this);
         if (view != null) {
+            nongLiInfo.setOnClickListener(this);
+            lotterMore.setOnClickListener(this);
             view.findViewById(R.id.ssq).setOnClickListener(this);
         }
     }

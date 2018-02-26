@@ -15,7 +15,7 @@ import cn.ltwc.cft.utils.FileUtils;
  */
 public class Constant {
     public static long exitTime = 2000;// 程序退出时间
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
     // 农历部分假日
     public final static String[] lunarHoliday = new String[]{"0101 春节",
             "0115 元宵节", "0202 龙抬头", "0504 皇上生辰", "0505 端午", "0707 乞巧节", "0715 中元节",

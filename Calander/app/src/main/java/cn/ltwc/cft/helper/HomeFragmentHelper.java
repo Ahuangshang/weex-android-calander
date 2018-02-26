@@ -92,8 +92,8 @@ public class HomeFragmentHelper {
         return HelperHolder.instance;
     }
 
-    public void init(View view) {
-        context = view.getContext();
+    public void init(View view, Context context) {
+        this.context = context;
         ssqi = view.findViewById(R.id.ssq_qi);
         red1 = view.findViewById(R.id.red_1);
         red2 = view.findViewById(R.id.red_2);

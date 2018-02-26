@@ -2,6 +2,7 @@ package cn.ltwc.cft.activity;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -106,7 +107,10 @@ public class HomeActivity extends BaseActivity {
     }
 
     private Fragment getFragment(BaseFragment fragment, int layoutId) {
-        return fragment.setLayoutResId(layoutId);
+        Bundle bundle = new Bundle();
+        bundle.putInt("layoutID", layoutId);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     private void initMenu() {

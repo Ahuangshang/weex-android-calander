@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,12 +79,17 @@ public class XiaoMIZhishuAdapter extends BaseAdapter {
         }
 //        Glide.with(context).load(list.get(position).getImage())
 //                .into(holder.img);
-        GlideUtil.loadImg(context, list.get(position).getImage(), holder.img);
         holder.erTitle.setText(list.get(position).getTitle());
         holder.erContent.setText(list.get(position).getSummary());
 //        Glide.with(context).load(list.get(position).getImage()).into(holder.img2);
-        GlideUtil.loadImg(context, list.get(position).getImage(), holder.img2);
         holder.erContent2.setText(list.get(position).getSummary());
+        try {
+            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img);
+            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img2);
+        } catch (OutOfMemoryError error) {
+            error.printStackTrace();
+            Log.e("AA", error.toString());
+        }
         return convertView;
     }
 

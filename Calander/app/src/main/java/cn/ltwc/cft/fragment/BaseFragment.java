@@ -38,6 +38,9 @@ public abstract class BaseFragment extends Fragment {
             width = dm.widthPixels;
             height = dm.heightPixels;
         }
+        if (getArguments() != null) {
+            this.layoutResId = getArguments().getInt("layoutID");
+        }
         if (this.layoutResId != -1) {
             view = inflater.inflate(this.layoutResId, container, false);
         }
@@ -61,12 +64,6 @@ public abstract class BaseFragment extends Fragment {
      * 数据与视图的绑定
      */
     public abstract void bindView();
-
-    public BaseFragment setLayoutResId(int layoutResId) {
-        this.layoutResId = layoutResId;
-        return this;
-    }
-
     public void jumpToActivity(Intent intent) {
         startActivity(intent);
         if (getActivity() != null) {

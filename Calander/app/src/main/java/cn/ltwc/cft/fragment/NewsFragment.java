@@ -1,6 +1,7 @@
 package cn.ltwc.cft.fragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -56,7 +57,9 @@ public class NewsFragment extends BaseFragment {
 
     private Fragment getFragment(String name) {
         NewsViewFragment newsViewFragment = new NewsViewFragment();
-        newsViewFragment.setLayoutResId(R.layout.fragmet_news_weex);
+        Bundle bundle = new Bundle();
+        bundle.putInt("layoutID", R.layout.fragmet_news_weex);
+        newsViewFragment.setArguments(bundle);
         newsViewFragment.setIndex(index);
         newsViewFragment.setName(name);
         index++;
