@@ -22,8 +22,8 @@ android {
         applicationId "cn.ltwc.cft"
         minSdkVersion project.appMinSdkVersion
         targetSdkVersion project.targetSdkVersion
-        versionCode 240
-        versionName "3.1.1"
+        versionCode 280
+        versionName "3.1.2"
         signingConfig signingConfigs.config
 //        ndk {
 //            // 设置支持的SO库架构
@@ -59,6 +59,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:multidex:1.0.2'
     compile "com.android.support:appcompat-v7:${project.supportLibVersion}"
     compile "com.android.support:support-v4:${project.supportLibVersion}"
     compile files('libs/AMap_Location_V3.00_20160922.jar')

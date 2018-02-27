@@ -7,7 +7,7 @@ package cn.ltwc.cft.entiy;
 public class LocationInfo {
     private String lat;//纬度
     private String lon;//经度
-    private String cityName;//城市名称
+    private String cityName = "杭州";//城市名称
     private String district;//区
     private String address;//地址
     private String street;//街道

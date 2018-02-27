@@ -5,6 +5,11 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tencent.smtt.sdk.TbsVideo;
+
+import java.util.HashMap;
+
+import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.cft.weex.WeexUtil;
@@ -47,7 +52,9 @@ public class MoreFragment extends BaseFragment {
             if (parent == null) {
                 parent = view.findViewById(R.id.parent);
             }
-            weexUtil = new WeexUtil("more", null, parent, (Activity) c);
+            weexUtil = new WeexUtil("more", new HashMap<String, Object>() {{
+                put("showLive", String.valueOf(TbsVideo.canUseTbsPlayer(AppManager.getAppManager().currentActivity())));
+            }}, parent, (Activity) c);
             weexUtil.fireFresh();
         }
     }

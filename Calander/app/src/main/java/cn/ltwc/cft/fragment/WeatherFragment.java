@@ -2,6 +2,7 @@ package cn.ltwc.cft.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import java.util.HashMap;
@@ -80,7 +81,7 @@ public class WeatherFragment extends BaseFragment {
                 parent = view.findViewById(R.id.parent);
             }
             weexUtil = new WeexUtil("weather", new HashMap<String, Object>() {{
-                put("city", locationInfo != null ? locationInfo.getDistrict() : "杭州");
+                put("city", locationInfo != null ? TextUtils.isEmpty(locationInfo.getDistrict()) ? TextUtils.isEmpty(locationInfo.getCityName()) ? "杭州" : locationInfo.getCityName() : locationInfo.getDistrict() : "杭州");
             }}, parent, (Activity) c);
             weexUtil.fireFresh();
         }
@@ -95,7 +96,7 @@ public class WeatherFragment extends BaseFragment {
 
     private void notifyWeather() {
         if (weexUtil != null) {
-            weexUtil.setData(locationInfo != null ? locationInfo.getDistrict() : "杭州");
+            weexUtil.setData(locationInfo != null ? TextUtils.isEmpty(locationInfo.getDistrict()) ? TextUtils.isEmpty(locationInfo.getCityName()) ? "杭州" : locationInfo.getCityName() : locationInfo.getDistrict() : "杭州");
             weexUtil.setType("locationInfo");
             weexUtil.fireFresh(false);
         }

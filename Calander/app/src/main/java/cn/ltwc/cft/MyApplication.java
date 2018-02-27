@@ -1,6 +1,7 @@
 package cn.ltwc.cft;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.mob.MobSDK;
 import com.taobao.weex.InitConfig;
@@ -8,6 +9,8 @@ import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+
+import android.support.multidex.MultiDex;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +63,6 @@ public class MyApplication extends Application {
         MobSDK.init(this, "145da38f81409 ", "7a09f126f84f67c1a7c8166ef09d4af0");
         //CrashReport.initCrashReport(getApplicationContext(), "9b9cb6f069", false);
         Bugly.init(getApplicationContext(), "9b9cb6f069", false);
-        Beta.autoCheckUpgrade = false;
         /***** Beta高级设置 *****/
         /**
          * true表示app启动自动初始化升级模块;
@@ -74,7 +76,7 @@ public class MyApplication extends Application {
          * true表示初始化时自动检查升级;
          * false表示不会自动检查升级,需要手动调用Beta.checkUpgrade()方法;
          */
-        Beta.autoCheckUpgrade = false;
+        Beta.autoCheckUpgrade = !Constant.DEBUG;
 
         /**
          * 设置升级检查周期为60s(默认检查周期为0s)，60s内SDK不重复向后台请求策略);
@@ -185,6 +187,16 @@ public class MyApplication extends Application {
             e.printStackTrace();
         }
         AppManager.getAppManager().AppExit(this);
+    }
+
+    /**
+     * 防止一些环境会编译报错
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+
     }
 
     public String getCityCode() {

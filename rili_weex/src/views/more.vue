@@ -15,7 +15,7 @@
       <item top_border="true" imgUrl="share.png" itemName="推荐给朋友" style="margin-top: 60px"
             show_arrow="true" @onClick="jump(5)"></item>
       <item top_border="true" imgUrl="live.png" itemName="视频直播" style="margin-top: 60px;margin-bottom: 80px"
-            show_arrow="true" @onClick="jump(6)" v-if="oldVersion>310230"></item>
+            show_arrow="true" @onClick="jump(6)" v-if="oldVersion>310230&&showLive"></item>
     </scroller>
   </div>
 </template>
@@ -38,6 +38,9 @@
       },
       newVersion: {
         default: 0
+      },
+      showLive: {
+        default: false
       }
 
     },
@@ -51,6 +54,7 @@
         window.temp_this = this;
         mtd.registerModules();
       }
+      this.getOptions();
       weex.requireModule('event').setConfig(Config.channels, Config.adImgUrl, Config.adImgSchemeUrl);
       weex.requireModule('event').getVersion((versionInfo) => {
         this.versionInfo = versionInfo;
@@ -64,6 +68,15 @@
       });
     },
     methods: {
+      getOptions: function () {
+        if (mtd.isweb()) {
+          var bundleUrl = this.$getConfig().bundleUrl;
+          var urlParams = mtd.parseQueryString(bundleUrl);
+          this.showLive = urlParams.showLive === 'true';
+        } else {
+          this.showLive = this.$getConfig().showLive.toLocaleString() === 'true';
+        }
+      },
       font: function (size) {
         return mtd.getFontSize(size);
       },
