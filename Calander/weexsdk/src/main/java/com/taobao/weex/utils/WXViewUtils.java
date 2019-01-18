@@ -81,7 +81,7 @@ public class WXViewUtils {
   @SuppressLint("NewApi")
   public static int generateViewId() {
 
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+    if (Build.VERSION.SDK_INT < VERSION_CODES.JELLY_BEAN_MR1) {
       for (;;) {
         final int result = sNextGeneratedId.get();
         // aapt-generated IDs have the high byte nonzero; clamp to the range under that.
@@ -355,7 +355,7 @@ public class WXViewUtils {
 
   @SuppressWarnings("deprecation")
   public static void setBackGround(View view, Drawable drawable){
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN){
+    if (Build.VERSION.SDK_INT < VERSION_CODES.JELLY_BEAN){
       view.setBackgroundDrawable(drawable);
     }
     else{
@@ -419,7 +419,7 @@ public class WXViewUtils {
    * @return
    */
   private static boolean clipCanvasDueToAndroidVersion(Canvas canvas) {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2 ||
+    return Build.VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2 ||
            !canvas.isHardwareAccelerated();
   }
 
@@ -456,7 +456,7 @@ public class WXViewUtils {
         child = parent.getChildAt(i);
         if (child.getBackground() instanceof BorderDrawable &&
             ((BorderDrawable) child.getBackground()).hasImage() &&
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
           return false;
         }
       }
@@ -469,7 +469,7 @@ public class WXViewUtils {
     if (widget instanceof WidgetGroup) {
       for (Widget child : ((WidgetGroup) widget).getChildren()) {
         if (child.getBackgroundAndBorder().hasImage() &&
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Build.VERSION.SDK_INT < VERSION_CODES.LOLLIPOP) {
           return false;
         }
       }

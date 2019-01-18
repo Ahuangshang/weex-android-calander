@@ -63,12 +63,12 @@ public class WXDomHandler implements Handler.Callback {
 
     if (!mHasBatch) {
       mHasBatch = true;
-      if(what != WXDomHandler.MsgType.WX_DOM_BATCH) {
+      if(what != MsgType.WX_DOM_BATCH) {
         int delayTime = DELAY_TIME;
         if(what == MsgType.WX_DOM_TRANSITION_BATCH){
           delayTime = TRANSITION_DELAY_TIME;
         }
-        mWXDomManager.sendEmptyMessageDelayed(WXDomHandler.MsgType.WX_DOM_BATCH, delayTime);
+        mWXDomManager.sendEmptyMessageDelayed(MsgType.WX_DOM_BATCH, delayTime);
       }
      }
     switch (what) {
@@ -135,6 +135,9 @@ public class WXDomHandler implements Handler.Callback {
 
 
     public static final int WX_DOM_TRANSITION_BATCH = 0xfb;
+
+
+    public static final int WX_DOM_START_BATCH = 0xfc;
 
     @Deprecated
     public static final int WX_COMPONENT_SIZE= 0xff1;

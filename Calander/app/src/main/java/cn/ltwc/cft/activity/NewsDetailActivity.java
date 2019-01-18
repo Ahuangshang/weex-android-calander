@@ -71,7 +71,7 @@ public class NewsDetailActivity extends BaseActivity {
         titleView.getRightIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HLUtil.toMyShare(NewsDetailActivity.this, Constant.SHARE_TYPE_WEB, getString(R.string.share_news_detail) + "\n" + (TextUtils.isEmpty(shareDec) ? title : shareDec) + "\n" + shareUrl, null, shareUrl);
+                HLUtil.toMyShare(NewsDetailActivity.this, Constant.SHARE_TYPE_WEB, getString(R.string.share_news_detail) + "\n" + (TextUtils.isEmpty(shareDec) ? title : shareDec) + "\n" + shareUrl, imgUrl, shareUrl);
             }
         });
         img.setVisibility(TextUtils.isEmpty(imgUrl) ? View.GONE : View.VISIBLE);
@@ -140,5 +140,12 @@ public class NewsDetailActivity extends BaseActivity {
                 "  }" +
                 "</style>";
         return "<html>" + head + style + "<body>" + bodyHTML + "</body></html>";
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        webViewHide = null;
+        webView = null;
     }
 }

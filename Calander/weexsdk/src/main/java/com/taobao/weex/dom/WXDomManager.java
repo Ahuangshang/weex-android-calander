@@ -87,7 +87,7 @@ public final class WXDomManager {
   /**
    * Remove the specified dom statement. This is called when {@link WXSDKManager} destroy
    * instances.
-   * @param instanceId {@link com.taobao.weex.WXSDKInstance#mInstanceId} for the instance
+   * @param instanceId {@link WXSDKInstance#mInstanceId} for the instance
    */
   public void removeDomStatement(String instanceId) {
     if (!WXUtils.isUiThread()) {
@@ -170,7 +170,7 @@ public final class WXDomManager {
 		  WXLogUtils.e("WXDomManager", className + " Is Invalid Action");
 		  if(className.contains("CreateFinishAction")){
 			WXExceptionUtils.commitCriticalExceptionRT(instanceId,
-					WXErrorCode.WX_KEY_EXCEPTION_DOM_ACTION_FIRST_ACTION.getErrorCode(),
+					WXErrorCode.WX_KEY_EXCEPTION_DOM_ACTION_FIRST_ACTION,
 					"executeAction",
 					WXErrorCode.WX_KEY_EXCEPTION_DOM_ACTION_FIRST_ACTION.getErrorMsg() + "|current action is" +className, null);
 			instance.setmIsCommitedDomAtionExp(true);

@@ -19,12 +19,13 @@ import android.content.Context;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import rx.functions.Action1;
 
-public class PhotoView extends ImageView implements IPhotoView {
+public class PhotoView extends AppCompatImageView implements IPhotoView {
 
     private final PhotoViewAttacher mAttacher;
 
@@ -192,10 +193,10 @@ public class PhotoView extends ImageView implements IPhotoView {
     }
 
 
-    @Override
-    protected void onDetachedFromWindow() {
-        mAttacher.cleanup();
-        super.onDetachedFromWindow();
-    }
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        mAttacher.cleanup();
+//        super.onDetachedFromWindow();
+//    }
 
 }

@@ -6,7 +6,7 @@
         style="color:#000000;justify-content: center;text-align: center;" :value="title"></text>
       <text :style="{ fontSize: tex_size_2 ,marginTop:contentMargin}"> 2017-10-01 李唐科技</text>
       <image :style="{ width: img_w, height:img_1_h }"
-             src="http://zerosboy.site/Ahuangshang/img/advertisement/ad.jpg"
+             src="http://imengu.cn/Ahuangshang/img/advertisement/ad.jpg"
              placeholder=""></image>
       <div>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
@@ -16,7 +16,7 @@
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #020402;justify-content: center;text-align: center;" :value="content_3"></text>
         <image :style="{ width: img_w, height:img_2_h }"
-               src="http://zerosboy.site/Ahuangshang/img/advertisement/ad2.jpg"
+               src="http://imengu.cn/Ahuangshang/img/advertisement/ad2.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #020402;justify-content: center;text-align: center;" :value="content_4"></text>
@@ -25,7 +25,7 @@
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #020402;justify-content: center;text-align: center;" :value="content_6"></text>
         <image :style="{ width: img_w, height:img_3_h }"
-               src="http://zerosboy.site/Ahuangshang/img/advertisement/ad4.jpg"
+               src="http://imengu.cn/Ahuangshang/img/advertisement/ad4.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #020402;justify-content: center;text-align: center;" :value="content_7"></text>
@@ -52,7 +52,7 @@
         <div :style="{ width: img_w }"
              style="align-items: center;">
           <image :style="{ width: img_4_h, height:img_4_h }"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad5.jpg"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad5.jpg"
                  placeholder=""></image>
         </div>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
@@ -62,7 +62,7 @@
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #020402;justify-content: center;text-align: center;" :value="content_14"></text>
         <image :style="{ width: img_w, height:img_5_h }"
-               src="http://zerosboy.site/Ahuangshang/img/advertisement/ad1.jpg"
+               src="http://imengu.cn/Ahuangshang/img/advertisement/ad1.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height2}"
               style="color: #f45531;" :value="content_15"></text>
@@ -76,19 +76,19 @@
               style="color: #f45531;" :value="content_18"></text>
         <div :style="{ width: img_w }" style="justify-content: center;flex-direction: row">
           <image :style="{ width: img_4_h, height:img_6_h }"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad_qq.png"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad_qq.png"
                  placeholder=""></image>
           <image :style="{ width: img_4_h, height:img_6_h ,marginLeft:contentMargin}"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad_aqy.png"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad_aqy.png"
                  placeholder=""></image>
         </div>
         <div :style="{ width: img_w ,marginTop:contentMargin}"
              style="justify-content: center;flex-direction: row">
           <image :style="{ width: img_4_h, height:img_6_h }"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad_yk.png"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad_yk.png"
                  placeholder=""></image>
           <image :style="{ width: img_4_h, height:img_6_h ,marginLeft:contentMargin}"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad_hy.png"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad_hy.png"
                  placeholder=""></image>
         </div>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
@@ -100,7 +100,7 @@
         <div :style="{ width: img_w }"
              style="align-items: center;">
           <image :style="{ width: img_4_h, height:img_4_h }"
-                 src="http://zerosboy.site/Ahuangshang/img/advertisement/ad3.jpg"
+                 src="http://imengu.cn/Ahuangshang/img/advertisement/ad3.jpg"
                  placeholder=""></image>
         </div>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height2}"

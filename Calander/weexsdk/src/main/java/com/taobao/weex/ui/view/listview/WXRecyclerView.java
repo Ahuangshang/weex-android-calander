@@ -103,7 +103,7 @@ public class WXRecyclerView extends RecyclerView implements WXGestureObservable 
 
   public void scrollTo(boolean smooth, int position, final  int offset, final int orientation){
     if (!smooth) {
-      RecyclerView.LayoutManager layoutManager = getLayoutManager();
+      LayoutManager layoutManager = getLayoutManager();
       if (layoutManager instanceof LinearLayoutManager) {
         //GridLayoutManager is also instance of LinearLayoutManager
         ((LinearLayoutManager) layoutManager).scrollToPositionWithOffset(position, -offset);
@@ -134,7 +134,7 @@ public class WXRecyclerView extends RecyclerView implements WXGestureObservable 
   }
 
   public void setOnSmoothScrollEndListener(final ExtendedLinearLayoutManager.OnSmoothScrollEndListener onSmoothScrollEndListener){
-    addOnScrollListener(new RecyclerView.OnScrollListener() {
+    addOnScrollListener(new OnScrollListener() {
       @Override
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {

@@ -65,12 +65,12 @@ import java.util.regex.Pattern;
 
 public class BoxShadowUtil {
   private static final String TAG = "BoxShadowUtil";
-  private static boolean sBoxShadowEnabled = true;
+  private static boolean sBoxShadowEnabled = false /*disable box-shadow temporary*/;
 
   private static Pattern sColorPattern;
 
   public static void setBoxShadowEnabled(boolean enabled) {
-    sBoxShadowEnabled = enabled;
+    //sBoxShadowEnabled = enabled;
     WXLogUtils.w(TAG, "Switch box-shadow status: " + enabled);
   }
 
@@ -306,7 +306,7 @@ public class BoxShadowUtil {
     String processedStyle = boxShadowStyle;
     while (matcher.find()) {
       String color = matcher.group();
-      processedStyle = processedStyle.replace(color, "#" + Integer.toHexString(WXResourceUtils.getColor(color, Color.BLACK)));
+      processedStyle = processedStyle.replace(color, "#" + String.format("%8s", Integer.toHexString(WXResourceUtils.getColor(color, Color.BLACK))).replaceAll("\\s", "0"));
     }
 
     String[] styles = processedStyle.split(",");

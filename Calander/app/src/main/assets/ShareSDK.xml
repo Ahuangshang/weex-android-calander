@@ -71,7 +71,9 @@
     <WechatMoments AppId="wxdf5ba0e7b2653c9d" AppSecret="c47ed05b637868e59c93d2d43f58fa8b"
         BypassApproval="false" Enable="true" Id="5" SortId="5" />
 
-    <QQ AppId="1106460466" AppKey="lWBL6eig3jva32t7" Enable="true" Id="5" ShareByAppClient="true"
+    <!--<QQ AppId="1106460466" AppKey="lWBL6eig3jva32t7" Enable="true" Id="5" ShareByAppClient="true"-->
+        <!--SortId="5" />-->
+    <QQ AppId="101540069" AppKey="b9f321b153500523a6ad1531f8674eae" Enable="true" Id="5" ShareByAppClient="true"
         SortId="5" />
 
     <ShortMessage Enable="true" Id="14" SortId="14" />

@@ -26,11 +26,14 @@ import android.text.Layout;
 import android.text.TextUtils;
 
 import com.taobao.weex.common.Constants;
+import com.taobao.weex.dom.binding.ELUtils;
+import com.taobao.weex.dom.binding.WXStatement;
 import com.taobao.weex.dom.flex.CSSAlign;
 import com.taobao.weex.dom.flex.CSSFlexDirection;
 import com.taobao.weex.dom.flex.CSSJustify;
 import com.taobao.weex.dom.flex.CSSPositionType;
 import com.taobao.weex.dom.flex.CSSWrap;
+import com.taobao.weex.el.parse.Parser;
 import com.taobao.weex.ui.component.WXText;
 import com.taobao.weex.ui.component.WXTextDecoration;
 import com.taobao.weex.utils.WXUtils;
@@ -40,6 +43,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import static com.taobao.weex.dom.binding.ELUtils.COMPONENT_PROPS;
+import static com.taobao.weex.dom.binding.ELUtils.EXCLUDES_BINDING;
 
 /**
  * Store value of component style
@@ -54,9 +60,18 @@ public class WXStyle implements Map<String, Object>,Cloneable {
   private Map<String,Map<String,Object>> mPesudoStyleMap = new ArrayMap<>();// clz_group:{styleMap}
   private Map<String,Object> mPesudoResetStyleMap = new ArrayMap<>();
 
+  /**
+   * dynamic binding attrs, can be null, only weex use
+   * */
+  private ArrayMap<String, Object>  mBindingStyle;
 
   public WXStyle(){
     mStyles = new ArrayMap<>();
+  }
+
+  public WXStyle(Map<String, Object> mStyles, boolean byPesudo) {
+    this();
+    this.putAll(filterBindingStyles(mStyles), byPesudo);
   }
 
   @Nullable
@@ -104,7 +119,7 @@ public class WXStyle implements Map<String, Object>,Cloneable {
   }
 
   public static int getFontWeight(Map<String, Object> style) {
-    int typeface = android.graphics.Typeface.NORMAL;
+    int typeface = Typeface.NORMAL;
     if (style != null) {
       Object temp = style.get(Constants.Name.FONT_WEIGHT);
       if (temp != null) {
@@ -124,7 +139,7 @@ public class WXStyle implements Map<String, Object>,Cloneable {
   }
 
   public static int getFontStyle(Map<String, Object> style) {
-    int typeface = android.graphics.Typeface.NORMAL;
+    int typeface = Typeface.NORMAL;
     if (style == null) {
       return typeface;
     }
@@ -134,7 +149,7 @@ public class WXStyle implements Map<String, Object>,Cloneable {
     }
     String fontWeight = temp.toString();
     if (fontWeight.equals(Constants.Value.ITALIC)) {
-      typeface = android.graphics.Typeface.ITALIC;
+      typeface = Typeface.ITALIC;
     }
     return typeface;
   }
@@ -700,10 +715,10 @@ public class WXStyle implements Map<String, Object>,Cloneable {
   }
 
   <T extends String, V> void processPesudoClasses(Map<T, V> styles) {
-    Iterator<Map.Entry<T, V>> iterator = styles.entrySet().iterator();
+    Iterator<Entry<T, V>> iterator = styles.entrySet().iterator();
     Map<String, Map<String, Object>> pesudoStyleMap = mPesudoStyleMap;
     while (iterator.hasNext()) {
-      Map.Entry<T, V> entry = iterator.next();
+      Entry<T, V> entry = iterator.next();
       //Key Format: "style-prop:pesudo_clz1:pesudo_clz2"
       String key = entry.getKey();
       int i;
@@ -749,6 +764,7 @@ public class WXStyle implements Map<String, Object>,Cloneable {
   protected WXStyle clone(){
     WXStyle style = new WXStyle();
     style.mStyles.putAll(this.mStyles);
+    style.mBindingStyle = mBindingStyle;
 
     for(Entry<String,Map<String,Object>> entry:this.mPesudoStyleMap.entrySet()){
       Map<String,Object> valueClone = new ArrayMap<>();
@@ -758,5 +774,43 @@ public class WXStyle implements Map<String, Object>,Cloneable {
 
     style.mPesudoResetStyleMap.putAll(this.mPesudoResetStyleMap);
     return style;
+  }
+
+
+  /**
+   * filter dynamic state ment
+   * */
+  private Map<String, Object> filterBindingStyles(Map styles) {
+    if(styles == null || styles.size() == 0){
+      return styles;
+    }
+    Set<Entry<String,Object>> entries = styles.entrySet();
+    Iterator<Entry<String,Object>> it =  entries.iterator();
+    while (it.hasNext()){
+      Entry<String,Object> entry = it.next();
+      if(filterBindingStyle(entry.getKey(), entry.getValue())){
+        it.remove();
+      }
+    }
+    return styles;
+  }
+
+  /**
+   * filter dynamic attrs and statements
+   * */
+  private boolean filterBindingStyle(String key, Object value) {
+    if(ELUtils.isBinding(value)){
+        if(mBindingStyle == null){
+          mBindingStyle = new ArrayMap<String, Object>();
+        }
+        value = ELUtils.bindingBlock(value);
+        mBindingStyle.put(key, value);
+        return  true;
+    }
+    return  false;
+  }
+
+  public ArrayMap<String, Object> getBindingStyle() {
+    return mBindingStyle;
   }
 }

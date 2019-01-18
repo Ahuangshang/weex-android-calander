@@ -59,6 +59,6 @@ public class WXImageStrategy {
   ImageListener imageListener;
 
   public interface ImageListener{
-    public void onImageFinish(String url,ImageView imageView,boolean  result,Map extra);
+    public void onImageFinish(String url, ImageView imageView, boolean result, Map extra);
   }
 }

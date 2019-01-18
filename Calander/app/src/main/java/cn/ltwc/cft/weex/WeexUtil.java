@@ -36,6 +36,7 @@ import cn.ltwc.viewutils.dialogutils.DialogUtil;
 import rx.functions.Action1;
 
 import static cn.ltwc.cft.data.Constant.DEBUG;
+import static cn.ltwc.cft.data.Constant.DEFAULT_HOST_NAME;
 import static cn.ltwc.cft.view.ChooseView.SELECT_WEEX_URL;
 
 /**
@@ -44,7 +45,8 @@ import static cn.ltwc.cft.view.ChooseView.SELECT_WEEX_URL;
  */
 
 public class WeexUtil implements IWXRenderListener {
-    private String serve = "http://zerosboy.site/Ahuangshang/android/";
+    private String serve = DEFAULT_HOST_NAME + "Ahuangshang/android/";
+    //private String serve = "https://ahuangshang.github.io/MyWebsite/android";
     WXSDKInstance mWXSDKInstance;
     private ViewGroup parent;
     private Action1<View> viewLoadSuccessListener;//页面和数据加载成功
@@ -61,7 +63,8 @@ public class WeexUtil implements IWXRenderListener {
     private List<String> prefix;
     private ImageView errorImg;
     private TextView errorDec, errorAgain;
-    private String h5Server = "http://zerosboy.site/Ahuangshang/html/";
+    private String h5Server = DEFAULT_HOST_NAME + "Ahuangshang/html/";
+    //private String h5Server = "https://ahuangshang.github.io/MyWebsite/html/";
     //private String h5Server = "http://192.168.31.150:8081/dist/web/";
 
     public Action1<String> getViewReLoadListener() {
@@ -192,7 +195,7 @@ public class WeexUtil implements IWXRenderListener {
         if (TextUtils.isEmpty(prefix)) {
             url = serve + HLUtil.getVersionName() + File.separator + jsName + ".weex.js";
         } else {
-            if (prefix.contains("ahuangshang.github.io") || prefix.contains("zerosboy.site")) {
+            if (prefix.contains("ahuangshang.github.io") || prefix.contains("imengu.cn")) {
                 url = serve + HLUtil.getVersionName() + File.separator + jsName + ".weex.js";
             } else {
                 url = prefix + jsName + ".weex.js?hot-reload_controller=1&_wx_tpl=" + prefix + jsName + ".weex.js";
@@ -221,25 +224,35 @@ public class WeexUtil implements IWXRenderListener {
     @Override
     public void onException(WXSDKInstance wxsdkInstance, String errorCode, String msg) {
         LogUtil.e("errorCode=" + errorCode + "\nmsg=" + msg + "\n" + wxsdkInstance.getBundleUrl());
-        if (DEBUG) {
-            loadH5();
+//        if (DEBUG) {
+//            loadLocal();
+//            //loadH5();
+//        } else {
+        if (!errorCode.equals("-1002")) {
+            //need use h5
+            //loadH5();
+            showErrorUnSopport();
+            addView(errorView);
         } else {
-            if (!errorCode.equals("-1002")) {
-                //need use h5
-                //loadH5();
-                showErrorUnSopport();
-                addView(errorView);
-            } else {
-                viewCreateSuccess = false;
-                DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) context));
-                dialogUtil.setTop("提示").setContent(msg).setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).show();
-                addView(errorView);
-            }
+            viewCreateSuccess = false;
+            DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) context));
+            dialogUtil.setTop("提示").setContent(msg).setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).show();
+            addView(errorView);
         }
+//        }
 
 
     }
 
+    private void loadLocal() {
+        if (mWXSDKInstance != null) {
+            mWXSDKInstance.destroy();
+        }
+        mWXSDKInstance = new WXSDKInstance(context);
+        mWXSDKInstance.registerRenderListener(this);
+
+        mWXSDKInstance.renderByUrl(jsName, "file:///js/" + jsName + ".weex.js", options, null, WXRenderStrategy.APPEND_ASYNC);
+    }
 
     private void loadH5() {
         parent.removeAllViews();
@@ -313,8 +326,13 @@ public class WeexUtil implements IWXRenderListener {
             if (prefix == null) {
                 prefix = new ArrayList<>();
                 prefix.add(serve);
-                prefix.add("http://192.168.31.150:8081/");
-                prefix.add("http://192.168.16.108:8081/");
+                prefix.add("http://192.168.31.101:8081/");
+                prefix.add("http://192.168.31.102:8081/");
+                prefix.add("http://192.168.31.103:8081/");
+                prefix.add("http://192.168.31.104:8081/");
+                prefix.add("http://192.168.31.105:8081/");
+                prefix.add("http://192.168.31.106:8081/");
+
             }
             ChooseView chooseView = new ChooseView(context, SELECT_WEEX_URL);
             chooseView.setList(prefix);

@@ -23,5 +23,5 @@ package com.taobao.weex.common;
  */
 
 public interface ICheckBindingScroller {
-  boolean isNeedScroller(String ref,Object option);
+  boolean isNeedScroller(String ref, Object option);
 }

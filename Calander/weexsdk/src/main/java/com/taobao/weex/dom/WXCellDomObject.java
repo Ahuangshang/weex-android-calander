@@ -31,7 +31,7 @@ import com.taobao.weex.utils.WXViewUtils;
 
 public class WXCellDomObject extends WXDomObject {
 
-  /** package **/ static final CSSNode.MeasureFunction CELL_MEASURE_FUNCTION = new MeasureFunction() {
+  /** package **/ static final MeasureFunction CELL_MEASURE_FUNCTION = new MeasureFunction() {
     @Override
     public void measure(CSSNode node, float width, MeasureOutput measureOutput) {
       if (node != null) {

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -59,12 +60,12 @@ import rx.functions.Action1;
 
 public class HomeFragmentHelper {
     private TextView ssqi, red1, red2, red3, red4, red5, red6, blue;// 双色球期号、红色球1~6、蓝色球
-    private MyListView myListView;
     public ImageView jumptoToday;
     private GestureDetector gestureDetector = null;
     private CalendarAdapter calV = null;
     private ViewFlipper flipper = null;
     private MyGridView gridView = null;
+    private MyListView myListView = null;
     public int jumpMonth = 0; // 每次滑动，增加或减去一个月,默认为0（即显示当前月）
     public int jumpYear = 0; // 滑动跨越一年，则增加或者减去一年,默认为0(即当前年)
     public int chooseday;
@@ -102,7 +103,6 @@ public class HomeFragmentHelper {
         red5 = view.findViewById(R.id.red_5);
         red6 = view.findViewById(R.id.red_6);
         blue = view.findViewById(R.id.blue);
-        myListView = view.findViewById(R.id.my_list_view);
         jumptoToday = view.findViewById(R.id.weather);
         gestureDetector = new GestureDetector(context, new MyGestureListener());
         flipper = view.findViewById(R.id.flipper);
@@ -111,6 +111,7 @@ public class HomeFragmentHelper {
         yi = view.findViewById(R.id.yi);
         ji = view.findViewById(R.id.ji);
         myscrollview = view.findViewById(R.id.scrollview);
+        myListView = view.findViewById(R.id.my_list_view);
         //========================================================================
         bindView();
     }

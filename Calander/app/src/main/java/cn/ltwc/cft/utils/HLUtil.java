@@ -1,6 +1,7 @@
 package cn.ltwc.cft.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.activity.HomeActivity;
 import cn.ltwc.cft.activity.ShareActivity;
 import cn.ltwc.cft.beans.RiqiBean;
 import cn.ltwc.cft.beans.YiJiBean;
@@ -23,6 +26,7 @@ import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.data.LunarCalendar;
 import cn.ltwc.cft.data.SpecialCalendar;
 import cn.ltwc.cft.db.HuangLi;
+import cn.ltwc.cft.helper.HideService;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -352,5 +356,51 @@ public class HLUtil {
 
     public static String getVersionInfo() {
         return "V " + getVersionName() + "." + getVersionCode();
+    }
+
+    /**
+     * 判断服务是否开启
+     *
+     * @return
+     */
+    public static boolean isServiceRunning(Context context, String ServiceName) {
+        if (TextUtils.isEmpty(ServiceName))
+            return false;
+        ActivityManager myManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager
+                .getRunningServices(30);
+        for (int i = 0; i < runningService.size(); i++) {
+            if (runningService.get(i).service.getClassName().toString()
+                    .equals(ServiceName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void startHideService() {
+        if (!HLUtil.isServiceRunning(AppManager.getAppManager().currentActivity(), HideService.class.getName())) {
+            Intent service = new Intent(AppManager.getAppManager().currentActivity(), HideService.class);
+            AppManager.getAppManager().currentActivity().startService(service);
+        }
+    }
+
+    public static boolean isOriginProcess(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String packageName = context.getPackageName();
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager
+                .getRunningAppProcesses();
+        if (appProcesses == null) {
+            return true;
+        }
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.contains(packageName)) {
+                if (appProcess.processName.equals(String.valueOf(packageName + ":ltkjGallery"))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

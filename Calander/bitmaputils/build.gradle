@@ -22,6 +22,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:${project.supportLibVersion}"
+    compile "com.android.support:support-v4:${project.supportLibVersion}"
+    compile "com.android.support:design:${project.supportLibVersion}"
     compile 'com.github.bumptech.glide:glide:3.8.0'
     compile 'io.reactivex:rxjava:1.2.2'
 }

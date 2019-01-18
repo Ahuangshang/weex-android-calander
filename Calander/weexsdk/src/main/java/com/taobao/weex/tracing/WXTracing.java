@@ -109,7 +109,7 @@ public class WXTracing {
   }
 
   public static TraceEvent newEvent(String fname, String instanceId, int parentId) {
-    WXTracing.TraceEvent traceEvent = new TraceEvent();
+    TraceEvent traceEvent = new TraceEvent();
     traceEvent.fname = fname;
     traceEvent.iid = instanceId;
     traceEvent.traceId = WXTracing.nextId();

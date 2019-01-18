@@ -18,10 +18,14 @@
  */
 package com.taobao.weex.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.taobao.weex.WXEnvironment;
+import com.taobao.weex.WXSDKInstance;
+import com.taobao.weex.WXSDKManager;
 import com.taobao.weex.common.WXRequest;
 import com.taobao.weex.common.WXResponse;
 
@@ -38,6 +42,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 
 public class DefaultWXHttpAdapter implements IWXHttpAdapter {
@@ -92,7 +100,11 @@ public class DefaultWXHttpAdapter implements IWXHttpAdapter {
             listener.onHttpFinish(response);
           }
           if (e instanceof IOException) {
-            reporter.httpExchangeFailed((IOException) e);
+            try {
+              reporter.httpExchangeFailed((IOException) e);
+            } catch (Throwable t) {
+              t.printStackTrace();
+            }
           }
         }
       }

@@ -1,7 +1,7 @@
 <template>
     <scroller>
-        <image style="width: 750px;height: 1125px" src="http://zerosboy.site/Ahuangshang/img/springFestival/img_1.jpg"
-               placeholder="http://zerosboy.site/Ahuangshang/img/image_icon/default.png"></image>
+        <image style="width: 750px;height: 1125px" src="http://imengu.cn/Ahuangshang/img/springFestival/img_1.jpg"
+               placeholder="http://imengu.cn/Ahuangshang/img/image_icon/default.png"></image>
         <div>
             <div :style="{ marginLeft: font(contentMargin),marginRight: font(contentMargin)}">
                 <text :value="title_pingying" :style="{fontSize:font(12),lineHeight:font(line_height)}"></text>

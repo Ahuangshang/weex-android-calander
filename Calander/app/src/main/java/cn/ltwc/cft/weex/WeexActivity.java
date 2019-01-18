@@ -10,15 +10,18 @@ import com.tencent.smtt.sdk.VideoActivity;
 import java.util.Iterator;
 import java.util.Map;
 
+import cn.ltwc.bitmaputils.glide.GlideUtil;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.activity.BaseActivity;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.utils.HLUtil;
 import cn.ltwc.cft.utils.Utils;
 import cn.ltwc.cft.view.TitleView;
+import cn.ltwc.utils.LogUtil;
 
 import static cn.ltwc.cft.data.Constant.JS_NAME;
 import static cn.ltwc.cft.data.Constant.OPTIONS;
+import static cn.ltwc.cft.data.Constant.SHARE_IMAGE_PATH;
 import static cn.ltwc.cft.data.Constant.SHARE_URL;
 import static cn.ltwc.cft.data.Constant.WEBTITLE;
 
@@ -34,6 +37,7 @@ public class WeexActivity extends BaseActivity {
     private Map<String, Object> options;
     private String webTitle;//标题名称
     private String shareUrl;//分享的URL。
+    private String shareImagePath;//分享的图片
     private WeexUtil weexUtil;
 
     public WeexActivity() {
@@ -52,6 +56,7 @@ public class WeexActivity extends BaseActivity {
         options = (Map<String, Object>) getIntent().getSerializableExtra(OPTIONS);
         webTitle = getIntent().getStringExtra(WEBTITLE);
         shareUrl = getIntent().getStringExtra(SHARE_URL);
+        shareImagePath = getIntent().getStringExtra(SHARE_IMAGE_PATH);
     }
 
     @Override
@@ -82,7 +87,9 @@ public class WeexActivity extends BaseActivity {
                         shareUrl = shareUrl.substring(0, shareUrl.length() - 1);
 
                     }
-                    HLUtil.toMyShare(WeexActivity.this, Constant.SHARE_TYPE_WEB, "王朝黄历\n" + webTitle + "\n" + shareUrl, null, shareUrl);
+                    HLUtil.toMyShare(WeexActivity.this, Constant.SHARE_TYPE_WEB,
+                            "王朝黄历\n" + webTitle + "\n" + shareUrl,
+                            shareImagePath, shareUrl);
                 }
             });
         }
@@ -132,14 +139,18 @@ public class WeexActivity extends BaseActivity {
         if (weexUtil != null) {
             weexUtil.mWXSDKInstance.onActivityDestroy();
         }
+        if (parent != null) {
+            parent.removeAllViews();
+            parent = null;
+        }
+        if (title != null) {
+            title = null;
+        }
     }
 
     @Override
     public void finish() {
-        ViewGroup view = (ViewGroup) getWindow().getDecorView();
-        view.removeAllViews();
         super.finish();
-        VideoActivity a;
-        TbsVideo tbsVideo;
+        GlideUtil.clearImageMemoryCache(this);
     }
 }

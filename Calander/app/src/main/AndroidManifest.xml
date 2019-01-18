@@ -40,6 +40,8 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <!-- 设置读取日志的权限 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 
     <!-- *************************************************** -->
     <!-- JPush权限 -->
@@ -95,9 +97,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ZhaiNaniActivity"
-            android:screenOrientation="portrait" />
+            android:process=":ltkjGallery"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.ShowImageGallery"
+            android:process=":ltkjGallery"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.MyWebView" />
         <activity
@@ -137,10 +142,10 @@
         <activity
             android:name="com.tencent.smtt.sdk.VideoActivity"
             android:alwaysRetainTaskState="true"
-            android:screenOrientation="landscape"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="false"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="com.tencent.smtt.tbs.video.PLAY" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -202,7 +207,9 @@
 
 
         <!-- **************JPush end ********************** -->
-
+        <service
+            android:name=".helper.HideService"
+            android:process=":ltkjGallery" />
     </application>
 
 </manifest>

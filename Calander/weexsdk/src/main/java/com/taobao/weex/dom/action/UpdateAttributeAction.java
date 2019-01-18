@@ -49,20 +49,26 @@ class UpdateAttributeAction extends TraceableAction implements DOMAction, Render
     if (context.isDestory()) {
       return;
     }
+    if(mData == null){
+      return;
+    }
+
     WXSDKInstance instance = context.getInstance();
     final WXDomObject domObject = context.getDomByRef(mRef);
     if (domObject == null) {
       if (instance != null) {
 		WXExceptionUtils.commitCriticalExceptionRT(instance.getInstanceId(),
-				WXErrorCode.WX_KEY_EXCEPTION_DOM_UPDATE_ATTRS.getErrorCode(),
+				WXErrorCode.WX_KEY_EXCEPTION_DOM_UPDATE_ATTRS,
 				"updateAttr",
 				WXErrorCode.WX_KEY_EXCEPTION_DOM_UPDATE_ATTRS.getErrorMsg() + "domObject is null",null);
       }
       return;
     }
-
+    domObject.getAttrs().filterBindingStatement(mData);
     domObject.updateAttr(mData);
-    context.postRenderTask(this);
+    if(mData.size() > 0) {
+      context.postRenderTask(this);
+    }
   }
 
   @Override

@@ -147,17 +147,23 @@ public class WXEventModule extends WXModule {
 
     }
 
+    @JSMethod
+    @JavascriptInterface
+    public void showDialogKnow(String title,String content) {
+        DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) mWXSDKInstance.getContext()));
+        dialogUtil.setTop("提示").setContent("下载新版本").setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).setTop(title).setContent(content).show();
+    }
+
+
     /**
      * 存取App的一些参数设置
      *
-     * @param tabs        新闻的tabs
      * @param adImgUrl    广告图片的url
      * @param adSchemeUrl 广告图片点击跳转的链接
      */
     @JSMethod
     @JavascriptInterface
-    public void setConfig(String tabs, String adImgUrl, String adSchemeUrl) {
-        SharedPreferenceUtil.put(Constant.TABS, tabs);
+    public void setConfig(String adImgUrl, String adSchemeUrl) {
         SharedPreferenceUtil.put(Constant.AD_IMG_URL, adImgUrl);
         SharedPreferenceUtil.put(Constant.AD_SCHEME_URL, adSchemeUrl);
     }

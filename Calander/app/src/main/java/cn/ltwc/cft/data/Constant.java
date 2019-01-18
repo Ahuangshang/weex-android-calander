@@ -15,7 +15,9 @@ import cn.ltwc.cft.utils.FileUtils;
  */
 public class Constant {
     public static long exitTime = 2000;// 程序退出时间
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
+    public static final String SHARE_DEFAULT_IMAGE = "http://imengu.cn/Ahuangshang/img/shareImg.png";
+    public static final String DEFAULT_HOST_NAME = "http://imengu.cn/";
     // 农历部分假日
     public final static String[] lunarHoliday = new String[]{"0101 春节",
             "0115 元宵节", "0202 龙抬头", "0504 皇上生辰", "0505 端午", "0707 乞巧节", "0715 中元节",
@@ -65,7 +67,7 @@ public class Constant {
     public static final String SHARE_TYPE_TEXT = "text/plain";
     public static final String SHARE_TYPE_IMG = "image/*";
     public static final String SHARE_TYPE_AUDIO = "audio/*";
-    public static final String SHARE_TYPE_WEB = "image/*";
+    public static final String SHARE_TYPE_WEB = "image/text";
     public static final String TYPE = "type";
     public static final String SHARE_MESSAGE = "share_msg";
     public static final String SHARE_IMG = "share_img";
@@ -77,7 +79,7 @@ public class Constant {
     public static final String URL_HISTORY_TODAY_JUHE = "http://v.juhe.cn/todayOnhistory/";// 历史上的今天聚合数据接口地址
     public static final String URL_GET_GIRL_IMG = "http://image.baidu.com/search/";//获取美女图片的地址
     public static final String URL_GET_JOKE = "http://xiaobaxiaoba.com/";//获取笑话的接口
-    public static final int VIEW_PAGER_OFF_SCREEN_PAGE_LIMIT = 5;//viewPager缓存页数
+    public static final int VIEW_PAGER_OFF_SCREEN_PAGE_LIMIT = 3;//viewPager缓存页数
     public static final int PAGE_SIZE = 20;//数据加载页数
     public static final File directory = FileUtils.getCacheDirectory(MyApplication.getInstance(), "DownLoad");
     public static final String ACCESS_LOCATION_EXTRA_COMMANDS = Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS;//定位的权限
@@ -86,6 +88,7 @@ public class Constant {
     public static final String JS_NAME = "jsName";//加载的js文件名
     public static final String OPTIONS = "options";//传递的参数
     public static final String SHARE_URL = "shareUrl";//分享的URL。
+    public static final String SHARE_IMAGE_PATH = "shareImagePath";//分享链接的图片
     public static final int START_ACTIVITY_FINISH = 0x9999;
     public static final int LOCATION_SUCCESS = 0x9998;
     public static final String CAN_GO_BACK = "canGoBack";

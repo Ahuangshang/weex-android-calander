@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -50,7 +51,7 @@ public class DialogUtil implements View.OnClickListener {
     LinearLayout contentView;
 
     View buttonTwoBtnLayout, buttonOneBtnLayout;
-    TextView leftBtn, rightBtn;
+    TextView leftBtn, rightBtn, btn;
     int dialogWith;
     private boolean isReturn;
 
@@ -119,6 +120,7 @@ public class DialogUtil implements View.OnClickListener {
         buttonTwoBtnLayout = showViewBox.findViewById(R.id.button_two_btn);
         leftBtn = (TextView) showViewBox.findViewById(R.id.button_left_btn);
         rightBtn = (TextView) showViewBox.findViewById(R.id.button_right_btn);
+        btn = (TextView) showViewBox.findViewById(R.id.button_btn);
 
         leftBtn.setOnClickListener(this);
         rightBtn.setOnClickListener(this);
@@ -128,7 +130,9 @@ public class DialogUtil implements View.OnClickListener {
     }
 
     public DialogUtil setTop(@NonNull String topTitle) {
-        this.topTv.setText(topTitle);
+        if (!TextUtils.isEmpty(topTitle)) {
+            this.topTv.setText(topTitle);
+        }
         return this;
     }
 
@@ -148,8 +152,8 @@ public class DialogUtil implements View.OnClickListener {
         return this;
     }
 
-    public DialogUtil setLeftBtnClickListenter(BtnClickListener leftBtnClickListenter) {
-        this.leftBtnClickListenter = leftBtnClickListenter;
+    public DialogUtil setLeftBtnClickListener(BtnClickListener leftBtnClickListener) {
+        this.leftBtnClickListenter = leftBtnClickListener;
         return this;
     }
 
@@ -175,7 +179,9 @@ public class DialogUtil implements View.OnClickListener {
      * @return
      */
     public DialogUtil setLeftBtn(@NonNull String leftBtnText) {
-        this.leftBtn.setText(leftBtnText);
+        if (!TextUtils.isEmpty(leftBtnText)) {
+            this.leftBtn.setText(leftBtnText);
+        }
         return this;
     }
 
@@ -184,7 +190,16 @@ public class DialogUtil implements View.OnClickListener {
      * @return
      */
     public DialogUtil setRightBtn(@NonNull String rightBtnText) {
-        this.rightBtn.setText(rightBtnText);
+        if (!TextUtils.isEmpty(rightBtnText)) {
+            this.rightBtn.setText(rightBtnText);
+        }
+        return this;
+    }
+
+    public DialogUtil setBtn(@NonNull String btnText) {
+        if (!TextUtils.isEmpty(btnText)) {
+            this.btn.setText(btnText);
+        }
         return this;
     }
 

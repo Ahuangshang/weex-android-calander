@@ -97,7 +97,7 @@
             },
             getWeatherInfo: function (showLoading) {
                 var that = this;
-                weex.requireModule('net').requestNetData('get', 'http://www.sojson.com/open/api/weather/json.shtml/', '', JSON.stringify(that.params), showLoading, function (ret) {
+                weex.requireModule('net').requestNetData('get', 'http://t.weather.sojson.com/api/weather/city/' + that.params.cityCode + '/', '', '', showLoading, function (ret) {
                     that.dealBack(ret);
                     that.show = true;
                 });
@@ -109,12 +109,16 @@
                     var urlParams = mtd.parseQueryString(bundleUrl);
                     this.params = {
                         city: urlParams.city,
-                    };
+                        cityCode: urlParams.cityCode,
+                    }
+                    ;
                 } else {
                     this.params = {
                         city: this.$getConfig().city,
+                        cityCode: this.$getConfig().cityCode,
                     };
                 }
+                // weex.require('event').showMessage(this.params.city);
             },
             dealBack: function (ret) {
                 if (ret != null) {
@@ -126,7 +130,7 @@
                         this.forecast.splice(0, this.forecast.length);
                         data.forecast.map((item) => {
                             this.forecast.push({
-                                date: '周' + item.date.substring(item.date.length - 1, item.date.length),
+                                date: item.week.replace("星期", "周"),
                                 type: item.type,
                                 dec: Config.getWeatherDec(item.high, item.low)
                             });
@@ -138,11 +142,18 @@
                 return Config.getWeatherTypeImg(this.currentType);
             },
             distributeData: function (type, data) {
-                this.params = {
-                    city: JSON.parse(data).jsonData,
-                };
-                this.refresh = false;
-                this.getWeatherInfo(false);
+                if (type === 'locationInfo') {
+                    this.params = {
+                        city: JSON.parse(data).jsonData,
+                    };
+                } else if (type === 'cityCode') {
+                    this.params = {
+                        city: this.params.city,
+                        cityCode: JSON.parse(data).jsonData,
+                    };
+                    this.refresh = false;
+                    this.getWeatherInfo(false);
+                }
             },
         },
         created: function () {
@@ -151,11 +162,14 @@
                 mtd.registerModules();
             }
             this.getOptions();
+            this.getWeatherInfo(true);
         },
         mounted: function () {
-            this.getWeatherInfo(true);
             weex.requireModule('globalEvent').addEventListener('locationInfo', (data) => {
                 this.distributeData("locationInfo", JSON.stringify(data));
+            });
+            weex.requireModule('globalEvent').addEventListener('cityCode', (data) => {
+                this.distributeData("cityCode", JSON.stringify(data));
             });
         },
     }

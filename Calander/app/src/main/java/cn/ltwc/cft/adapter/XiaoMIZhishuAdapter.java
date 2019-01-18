@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import cn.ltwc.bitmaputils.glide.GlideUtil;
@@ -77,19 +79,19 @@ public class XiaoMIZhishuAdapter extends BaseAdapter {
                 holder.layout2.setVisibility(View.GONE);
             }
         }
-//        Glide.with(context).load(list.get(position).getImage())
-//                .into(holder.img);
+        Glide.with(context).load(list.get(position).getImage())
+                .into(holder.img);
         holder.erTitle.setText(list.get(position).getTitle());
         holder.erContent.setText(list.get(position).getSummary());
-//        Glide.with(context).load(list.get(position).getImage()).into(holder.img2);
+        Glide.with(context).load(list.get(position).getImage()).into(holder.img2);
         holder.erContent2.setText(list.get(position).getSummary());
-        try {
-            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img);
-            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img2);
-        } catch (OutOfMemoryError error) {
-            error.printStackTrace();
-            Log.e("AA", error.toString());
-        }
+//        try {
+//            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img);
+//            GlideUtil.loadImg(context, list.get(position).getImage(), holder.img2);
+//        } catch (OutOfMemoryError error) {
+//            //error.printStackTrace();
+//            Log.e("AA", error.toString());
+//        }
         return convertView;
     }
 

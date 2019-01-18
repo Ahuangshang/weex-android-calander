@@ -2,100 +2,110 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     android:orientation="vertical">
 
-    <cn.ltwc.bitmaputils.gallery.HackyViewPager
-        android:id="@+id/img_pager"
+    <cn.ltwc.bitmaputils.rvviewpager.RecyclerViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/rv"
+        app:rvp_triggerOffset="0.1"
+        app:rvp_singlePageFling="true" />
 
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:orientation="horizontal"
-        android:paddingBottom="7dp"
-        android:paddingTop="30dp"
-        android:visibility="gone">
 
-        <LinearLayout
-            android:id="@+id/set_wallpaper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/title_wallpaper" />
+    <!--<cn.ltwc.bitmaputils.gallery.HackyViewPager-->
+        <!--android:id="@+id/img_pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="设置为壁纸"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/black"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingBottom="7dp"-->
+        <!--android:paddingTop="30dp"-->
+        <!--android:visibility="gone">-->
 
-        <LinearLayout
-            android:id="@+id/down_load"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/set_wallpaper"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/title_down" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/title_wallpaper" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="下载"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:text="设置为壁纸"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="12sp" />-->
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/share"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/down_load"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/title_share" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/title_down" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="分享"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:text="下载"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="12sp" />-->
+        <!--</LinearLayout>-->
 
-    <TextView
-        android:id="@+id/dec"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginRight="17dp"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:visibility="gone" />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/share"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/title_share" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:text="分享"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="12sp" />-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/dec"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:layout_marginLeft="17dp"-->
+        <!--android:layout_marginRight="17dp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="14sp"-->
+        <!--android:visibility="gone" />-->
 </RelativeLayout>

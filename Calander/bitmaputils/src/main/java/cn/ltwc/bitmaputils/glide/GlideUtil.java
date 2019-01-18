@@ -132,7 +132,7 @@ public class GlideUtil {
 
     @SuppressWarnings("unchecked")
     public static void loadImgWithListener(Context context, String url, int listenerType, View bar, int preResourceId, int errorResourceId, ImageView targetImg) {
-        Glide.with(context).load(url).placeholder(preResourceId).error(errorResourceId).listener(new GlideListener(targetImg, listenerType, bar)).diskCacheStrategy(DiskCacheStrategy.NONE).into(new GlideDrawableImageViewTarget(targetImg, 1));
+        Glide.with(context).load(url).placeholder(preResourceId).error(errorResourceId).listener(new GlideListener(targetImg, listenerType, bar)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(targetImg);
     }
 
     @SuppressWarnings("unchecked")
@@ -148,7 +148,7 @@ public class GlideUtil {
 
     @SuppressWarnings("unchecked")
     public static void loadImgWithListener(Activity activity, String url, int listenerType, ImageView.ScaleType scaleType, View bar, int preResourceId, int errorResourceId, ImageView targetImg) {
-        Glide.with(activity).load(url).placeholder(preResourceId).error(errorResourceId).listener(new GlideListener(targetImg, listenerType, bar).setScaleType(scaleType)).diskCacheStrategy(DiskCacheStrategy.NONE).into(new GlideDrawableImageViewTarget(targetImg, 1));
+        Glide.with(activity).load(url).placeholder(preResourceId).error(errorResourceId).listener(new GlideListener(targetImg, listenerType, bar).setScaleType(scaleType)).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(new GlideDrawableImageViewTarget(targetImg, 1));
     }
 
     @SuppressWarnings("unchecked")
@@ -253,10 +253,11 @@ public class GlideUtil {
                 });
     }
 
+
     /**
      * 清除图片磁盘缓存
      */
-    private static void clearImageDiskCache(final Context context) {
+    public static void clearImageDiskCache(final Context context) {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) {
                 new Thread(new Runnable() {
@@ -276,7 +277,7 @@ public class GlideUtil {
     /**
      * 清除图片内存缓存
      */
-    private static void clearImageMemoryCache(Context context) {
+    public static void clearImageMemoryCache(Context context) {
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) { //只能在主线程执行
                 Glide.get(context).clearMemory();
@@ -284,6 +285,14 @@ public class GlideUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     *清理内存
+     */
+
+    public static void trimMemory(Context context, int level) {
+        Glide.get(context).trimMemory(level);
     }
 
     /**

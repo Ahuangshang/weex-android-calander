@@ -108,6 +108,7 @@ public class Constants {
     String FILTER = "filter";
     String QUALITY = "quality";
     String SRC = "src";
+    String SOURCE = "source";
     String PLACE_HOLDER = "placeHolder";
     String RESIZE_MODE = "resizeMode";
     String AUTO_RECYCLE = "autoBitmapRecycle";
@@ -123,6 +124,8 @@ public class Constants {
     String COLUMN_WIDTH= "columnWidth";
     String COLUMN_COUNT= "columnCount";
     String COLUMN_GAP= "columnGap";
+    String LEFT_GAP= "leftGap";
+    String RIGHT_GAP= "rightGap";
     String SHOW_SCROLLBAR= "showScrollbar";
     String OVERFLOW = "overflow";
     String TYPE = "type";
@@ -176,6 +179,7 @@ public class Constants {
     String TRANSFORM = "transform";
     String TRANSFORM_ORIGIN = "transformOrigin";
     String KEEP_INDEX = "keepIndex";
+    String KEEP_SELECTION_INDEX = "keepSelectionIndex";
 
     String INSERT_CELL_ANIMATION = "insertAnimation";
     String DELETE_CELL_ANIMATION = "deleteAnimation";
@@ -195,6 +199,13 @@ public class Constants {
     String OVERFLOW_HIDDEN_HEIGHT = "overflowHiddenHeight";
     String OVERFLOW_HIDDEN_WIDTH = "overflowHiddenWidth";
 
+    String PRIORITY  = "priority";
+
+    String STRATEGY  = "strategy";
+
+    String ALLOW_COPY_PASTE = "allowCopyPaste";
+    String INCLUDE_FONT_PADDING = "includeFontPadding";
+    String ENABLE_COPY = "enableCopy";
 
 
 
@@ -203,10 +214,9 @@ public class Constants {
       String LIST_DATA = "listData";
       String LIST_DATA_ITEM  ="alias";
       String LIST_DATA_ITEM_INDEX = "index";
-      String LIST_DATA_TEMPLATE_KEY = "templateKey";
-
-      String SLOT_TEMPLATE_TYPE = "templateType";
-      String LIST_DATA_ITEM_ID = "itemId";
+      String LIST_DATA_TEMPLATE_SWITCH_KEY = "switch";
+      String SLOT_TEMPLATE_CASE = "case";
+      String SLOT_TEMPLATE_DEFAULT = "default";
       String CELL_INDEX = "cellIndex";
       String TYPE_INDEX = "typeIndex";
     }
@@ -220,6 +230,9 @@ public class Constants {
 
     String SHOULD_STOP_PROPAGATION_INIT_RESULT = "shouldStopPropagationInitResult";
     String SHOULD_STOP_PROPAGATION_INTERVAL = "shouldStopPropagationInterval";
+
+
+    String NEST_SCROLLING_ENABLED = "nestedScrollingEnabled";
   }
 
   public interface Value {
@@ -314,9 +327,8 @@ public class Constants {
       String DESTORY = "destroy";
     }
 
-
-    String SHOULD_STOP_PROPAGATION = "shouldStopPropagation";
-
+    String STOP_PROPAGATION = "stopPropagation";
+    String ONMESSAGE = "message";
   }
 
   public interface PSEUDO {
@@ -332,6 +344,7 @@ public class Constants {
     String HTTPS = "https";
     String HTTP = "http";
     String LOCAL = "local";
+    String DATA = "data";
   }
 
   public interface CodeCache {

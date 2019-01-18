@@ -72,7 +72,7 @@ public class ExtendedLinearLayoutManager extends LinearLayoutManager{
     public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state,
                                        int position) {
         if (smoothScroller == null) {
-            smoothScroller = new ExtendedLinearLayoutManager.TopSnappedSmoothScroller(recyclerView.getContext());
+            smoothScroller = new TopSnappedSmoothScroller(recyclerView.getContext());
         }
         smoothScroller.setTargetPosition(position);
         startSmoothScroll(smoothScroller);

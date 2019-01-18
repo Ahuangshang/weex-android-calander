@@ -115,10 +115,10 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
 
   private  boolean cloneThis = false;
 
-  public void traverseTree(Consumer...consumers){
+  public int traverseTree(Consumer...consumers){
     long startNanos = System.nanoTime();
     if (consumers == null) {
-      return;
+      return 0;
     }
 
     for (Consumer consumer:consumers){
@@ -127,11 +127,35 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
 
     int count = childCount();
     WXDomObject child;
+    int maxChildDep = 0;
     for (int i = 0; i < count; ++i) {
       child = getChild(i);
-      child.traverseTree(consumers);
+      int depNum = child.traverseTree(consumers);
+      maxChildDep= maxChildDep > depNum? maxChildDep:depNum;
     }
     mDomThreadNanos += (System.nanoTime() - startNanos);
+    return maxChildDep+1;
+  }
+
+  /**
+   * diff with tranverse tree, only tranverse update tree
+   * */
+  public void traverseUpdateTree(Consumer...consumers){
+    if (consumers == null) {
+      return;
+    }
+    if(!hasUpdate()){
+      return;
+    }
+    for (Consumer consumer:consumers){
+      consumer.accept(this);
+    }
+    int count = childCount();
+    WXDomObject child;
+    for (int i = 0; i < count; ++i) {
+      child = getChild(i);
+      child.traverseUpdateTree(consumers);
+    }
   }
 
 
@@ -193,15 +217,15 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
 
     WXStyle domStyles = domObj.getStyles();
     Map<String, Object> style = new HashMap<>(5);
-    if (!domStyles.containsKey(Constants.Name.FLEX_DIRECTION)) {
-      style.put(Constants.Name.FLEX_DIRECTION, "column");
+    if (!domStyles.containsKey(Name.FLEX_DIRECTION)) {
+      style.put(Name.FLEX_DIRECTION, "column");
     }
-    if (!domStyles.containsKey(Constants.Name.BACKGROUND_COLOR)) {
-      style.put(Constants.Name.BACKGROUND_COLOR, "#ffffff");
-    }
+//    if (!domStyles.containsKey(Constants.Name.BACKGROUND_COLOR)) {
+//      style.put(Constants.Name.BACKGROUND_COLOR, "transparent");
+//    }
 
-    style.put(Constants.Name.DEFAULT_WIDTH, defaultWidth);
-    style.put(Constants.Name.DEFAULT_HEIGHT, defaultHeight);
+    style.put(Name.DEFAULT_WIDTH, defaultWidth);
+    style.put(Name.DEFAULT_HEIGHT, defaultHeight);
 
     domObj.updateStyle(style);
   }
@@ -230,15 +254,13 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     this.mRef = (String) map.get("ref");
     Object style = map.get("style");
     if (style != null && style instanceof JSONObject) {
-      WXStyle styles = new WXStyle();
-      styles.putAll((JSONObject) style,false);
+      WXStyle styles = new WXStyle((JSONObject) style,false);
       this.mStyles = styles;
       this.transition = WXTransition.fromMap(styles, this);
     }
     Object attr = map.get("attr");
     if (attr != null && attr instanceof JSONObject) {
       WXAttr attrs = new WXAttr((JSONObject) attr);
-      //WXJsonUtils.putAll(attrs, (JSONObject) attr);
       this.mAttributes = attrs;
     }
     Object event = map.get("event");
@@ -470,7 +492,7 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     if (mAttributes == null) {
       mAttributes = new WXAttr();
     }
-    mAttributes.putAll(updates);
+    mAttributes.skipFilterPutAll(updates);
     if(hasNewLayout()){
       markUpdateSeen();
     }
@@ -530,102 +552,102 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     if (!stylesMap.isEmpty()) {
       for(Map.Entry<String,Object> item: updates.entrySet()) {
         switch (item.getKey()) {
-          case Constants.Name.ALIGN_ITEMS:
+          case Name.ALIGN_ITEMS:
             setAlignItems(stylesMap.getAlignItems());
             break;
-          case Constants.Name.ALIGN_SELF:
+          case Name.ALIGN_SELF:
             setAlignSelf(stylesMap.getAlignSelf());
             break;
-          case Constants.Name.FLEX:
+          case Name.FLEX:
             setFlex(stylesMap.getFlex());
             break;
-          case Constants.Name.FLEX_DIRECTION:
+          case Name.FLEX_DIRECTION:
             setFlexDirection(stylesMap.getFlexDirection());
             break;
-          case Constants.Name.JUSTIFY_CONTENT:
+          case Name.JUSTIFY_CONTENT:
             setJustifyContent(stylesMap.getJustifyContent());
             break;
-          case Constants.Name.FLEX_WRAP:
+          case Name.FLEX_WRAP:
             setWrap(stylesMap.getCSSWrap());
             break;
-          case Constants.Name.MIN_WIDTH:
+          case Name.MIN_WIDTH:
             setMinWidth(WXViewUtils.getRealPxByWidth(stylesMap.getMinWidth(vp),vp));
             break;
-          case Constants.Name.MIN_HEIGHT:
+          case Name.MIN_HEIGHT:
             setMinHeight(WXViewUtils.getRealPxByWidth(stylesMap.getMinHeight(vp),vp));
             break;
-          case Constants.Name.MAX_WIDTH:
+          case Name.MAX_WIDTH:
             setMaxWidth(WXViewUtils.getRealPxByWidth(stylesMap.getMaxWidth(vp),vp));
             break;
-          case Constants.Name.MAX_HEIGHT:
+          case Name.MAX_HEIGHT:
             setMaxHeight(WXViewUtils.getRealPxByWidth(stylesMap.getMaxHeight(vp),vp));
             break;
-          case Constants.Name.DEFAULT_HEIGHT:
-          case Constants.Name.HEIGHT:
-            setStyleHeight(WXViewUtils.getRealPxByWidth(stylesMap.containsKey(Constants.Name.HEIGHT)?stylesMap.getHeight(vp):stylesMap.getDefaultHeight(),vp));
+          case Name.DEFAULT_HEIGHT:
+          case Name.HEIGHT:
+            setStyleHeight(WXViewUtils.getRealPxByWidth(stylesMap.containsKey(Name.HEIGHT)?stylesMap.getHeight(vp):stylesMap.getDefaultHeight(),vp));
             break;
-          case Constants.Name.WIDTH:
-          case Constants.Name.DEFAULT_WIDTH:
-            setStyleWidth(WXViewUtils.getRealPxByWidth(stylesMap.containsKey(Constants.Name.WIDTH)?stylesMap.getWidth(vp):stylesMap.getDefaultWidth(),vp));
+          case Name.WIDTH:
+          case Name.DEFAULT_WIDTH:
+            setStyleWidth(WXViewUtils.getRealPxByWidth(stylesMap.containsKey(Name.WIDTH)?stylesMap.getWidth(vp):stylesMap.getDefaultWidth(),vp));
             break;
-          case Constants.Name.POSITION:
+          case Name.POSITION:
             setPositionType(stylesMap.getPosition());
             break;
-          case Constants.Name.LEFT:
+          case Name.LEFT:
             setPositionLeft(WXViewUtils.getRealPxByWidth(stylesMap.getLeft(vp),vp));
             break;
-          case Constants.Name.TOP:
+          case Name.TOP:
             setPositionTop(WXViewUtils.getRealPxByWidth(stylesMap.getTop(vp),vp));
             break;
-          case Constants.Name.RIGHT:
+          case Name.RIGHT:
             setPositionRight(WXViewUtils.getRealPxByWidth(stylesMap.getRight(vp),vp));
             break;
-          case Constants.Name.BOTTOM:
+          case Name.BOTTOM:
             setPositionBottom(WXViewUtils.getRealPxByWidth(stylesMap.getBottom(vp),vp));
             break;
-          case Constants.Name.MARGIN:
+          case Name.MARGIN:
             setMargin(Spacing.ALL, WXViewUtils.getRealPxByWidth(stylesMap.getMargin(vp), vp));
             break;
-          case Constants.Name.MARGIN_LEFT:
+          case Name.MARGIN_LEFT:
             setMargin(Spacing.LEFT, WXViewUtils.getRealPxByWidth(stylesMap.getMarginLeft(vp), vp));
             break;
-          case Constants.Name.MARGIN_TOP:
+          case Name.MARGIN_TOP:
             setMargin(Spacing.TOP, WXViewUtils.getRealPxByWidth(stylesMap.getMarginTop(vp), vp));
             break;
-          case Constants.Name.MARGIN_RIGHT:
+          case Name.MARGIN_RIGHT:
             setMargin(Spacing.RIGHT, WXViewUtils.getRealPxByWidth(stylesMap.getMarginRight(vp), vp));
             break;
-          case Constants.Name.MARGIN_BOTTOM:
+          case Name.MARGIN_BOTTOM:
             setMargin(Spacing.BOTTOM, WXViewUtils.getRealPxByWidth(stylesMap.getMarginBottom(vp), vp));
             break;
-          case Constants.Name.BORDER_WIDTH:
+          case Name.BORDER_WIDTH:
             setBorder(Spacing.ALL, WXViewUtils.getRealPxByWidth(stylesMap.getBorderWidth(vp), vp));
             break;
-          case Constants.Name.BORDER_TOP_WIDTH:
+          case Name.BORDER_TOP_WIDTH:
             setBorder(Spacing.TOP, WXViewUtils.getRealPxByWidth(stylesMap.getBorderTopWidth(vp), vp));
             break;
-          case Constants.Name.BORDER_RIGHT_WIDTH:
+          case Name.BORDER_RIGHT_WIDTH:
             setBorder(Spacing.RIGHT, WXViewUtils.getRealPxByWidth(stylesMap.getBorderRightWidth(vp), vp));
             break;
-          case Constants.Name.BORDER_BOTTOM_WIDTH:
+          case Name.BORDER_BOTTOM_WIDTH:
             setBorder(Spacing.BOTTOM, WXViewUtils.getRealPxByWidth(stylesMap.getBorderBottomWidth(vp), vp));
             break;
-          case Constants.Name.BORDER_LEFT_WIDTH:
+          case Name.BORDER_LEFT_WIDTH:
             setBorder(Spacing.LEFT, WXViewUtils.getRealPxByWidth(stylesMap.getBorderLeftWidth(vp), vp));
             break;
-          case Constants.Name.PADDING:
+          case Name.PADDING:
             setPadding(Spacing.ALL, WXViewUtils.getRealPxByWidth(stylesMap.getPadding(vp), vp));
             break;
-          case Constants.Name.PADDING_LEFT:
+          case Name.PADDING_LEFT:
             setPadding(Spacing.LEFT, WXViewUtils.getRealPxByWidth(stylesMap.getPaddingLeft(vp), vp));
             break;
-          case Constants.Name.PADDING_TOP:
+          case Name.PADDING_TOP:
             setPadding(Spacing.TOP, WXViewUtils.getRealPxByWidth(stylesMap.getPaddingTop(vp), vp));
             break;
-          case Constants.Name.PADDING_RIGHT:
+          case Name.PADDING_RIGHT:
             setPadding(Spacing.RIGHT, WXViewUtils.getRealPxByWidth(stylesMap.getPaddingRight(vp), vp));
             break;
-          case Constants.Name.PADDING_BOTTOM:
+          case Name.PADDING_BOTTOM:
             setPadding(Spacing.BOTTOM, WXViewUtils.getRealPxByWidth(stylesMap.getPaddingBottom(vp), vp));
             break;
         }
@@ -658,7 +680,7 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     if (sDestroy.get()) {
       return null;
     }
-    if(cloneThis){
+    if(isCloneThis()){
       return  this;
     }
     WXDomObject dom = null;
@@ -672,6 +694,13 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     }
 
     return dom;
+  }
+
+  public boolean isDestroy(){
+    if(sDestroy == null){
+      return  true;
+    }
+    return sDestroy.get();
   }
 
   public void destroy() {
@@ -802,6 +831,7 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
     if(updates == null){
       return  false;
     }
+    /**
     Set<Map.Entry<String,Object>> entries = updates.entrySet();
     Iterator<Map.Entry<String,Object>> it = entries.iterator();
     while (it.hasNext()){
@@ -818,11 +848,14 @@ public class WXDomObject extends CSSNode implements Cloneable,ImmutableDomObject
         it.remove();
         continue;
       }
-    }
+    }*/
     return updates.size() > 0;
   }
 
   private static boolean shouldDirty(Map<String,Object> updates){
+    if(updates.size() > 0){
+      return  true;
+    }
     Set<Map.Entry<String, Object>>   entries =  updates.entrySet();
     for(Map.Entry<String, Object> entry : entries){
       if(dirtyStyle.contains(entry.getKey())){

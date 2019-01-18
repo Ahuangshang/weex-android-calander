@@ -2,7 +2,7 @@
   <scroller>
     <div>
       <image :style="{ width: img_w_top, height:img_1_h }"
-             src="http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn.jpg"
+             src="http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn.jpg"
              placeholder=""></image>
       <div :style="{ marginLeft: contentMargin,marginRight: contentMargin}">
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
@@ -14,28 +14,28 @@
               style="color: #334f16;" :value="content_1">
         </text>
         <image :style="{ width: img_w, height:img_2_h }"
-               src="http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn1.jpg"
+               src="http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn1.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_2}" style="margin-top: 15px"> 发展</text>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #334f16;" :value="content_2">
         </text>
         <image :style="{ width: img_w, height:img_3_h }"
-               src="http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn5.jpg"
+               src="http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn5.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_2}" style="margin-top: 15px"> 假期</text>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #334f16;" :value="content_3">
         </text>
         <image :style="{ width: img_w, height:img_4_h }"
-               src="http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn6.jpg"
+               src="http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn6.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_2}" style="margin-top: 15px"> 风俗习惯</text>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"
               style="color: #334f16;" :value="content_4">
         </text>
         <image :style="{ width: img_w, height:img_5_h }"
-               src="http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn7.gif"
+               src="http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn7.gif"
                placeholder=""></image>
         <text :style="{ fontSize: tex_size_2}" style="margin-top: 15px"> 神话传说</text>
         <text :style="{ fontSize: tex_size_1,marginTop: topMargin, margin:contentMargin,lineHeight:line_height}"

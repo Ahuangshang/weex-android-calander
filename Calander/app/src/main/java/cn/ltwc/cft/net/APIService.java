@@ -91,7 +91,6 @@ public class APIService {
     }
 
     public void anyGet(HashMap<String, Object> params, String api, Subscriber<Object> subscriber) {
-
         Observable observable = apis.anyGet(params).map(new resultFunc());
         toSubscribe(observable, subscriber);
     }

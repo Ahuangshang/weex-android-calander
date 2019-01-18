@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.helper.HideService;
 import cn.ltwc.utils.LogUtil;
 import cn.ltwc.utils.ToastUtil;
 
@@ -44,6 +46,9 @@ public class SchemeUtil {
     private void dealJump(String url) throws ClassNotFoundException {
         HashMap<String, Object> params = getParams(url);
         String className = params.get("className").toString();
+        if (className.contains("ZhaiNaniActivity")) {
+            HLUtil.startHideService();
+        }
         Class viewType = Class.forName(className);
         Intent intent = new Intent(AppManager.getAppManager().currentActivity(), viewType);
         HashMap<String, Class> viewFields = getClassFields(viewType);
@@ -101,11 +106,11 @@ public class SchemeUtil {
             }
         }
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        AppManager.getAppManager().getCurrentActivity().startActivity(intent);
+        AppManager.getAppManager().currentActivity().startActivity(intent);
         if (className.contains("ShareActivity")) {
-            AppManager.getAppManager().getCurrentActivity().overridePendingTransition(R.anim.share_open_in_anim, 0);
+            AppManager.getAppManager().currentActivity().overridePendingTransition(R.anim.share_open_in_anim, 0);
         } else {
-            AppManager.getAppManager().getCurrentActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+            AppManager.getAppManager().currentActivity().overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
         }
     }
 

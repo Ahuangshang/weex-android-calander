@@ -46,5 +46,5 @@ public interface ComponentObserver {
    * @param component
    * @param view
    */
-  void onViewCreated(WXComponent component,View view);
+  void onViewCreated(WXComponent component, View view);
 }

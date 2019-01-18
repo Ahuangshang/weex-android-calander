@@ -110,11 +110,12 @@
             android:background="#26000000" />
 
         <TextView
+            android:id="@+id/button_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="知道了"
+            android:text="朕知道了"
             android:textColor="#f45531"
             android:textSize="16sp" />
 

@@ -45,7 +45,7 @@ public interface IWXHttpAdapter {
     /**
      * headers received
      */
-    void onHeadersReceived(int statusCode,Map<String,List<String>> headers);
+    void onHeadersReceived(int statusCode, Map<String, List<String>> headers);
 
     /**
      * post progress

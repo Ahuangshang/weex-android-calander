@@ -8,7 +8,7 @@
                 <text class="refresh-indicator">{{refreshText}}</text>
             </refresh>
             <cell v-for="(v,index) in list">
-            <slot name="myslot" :item="v" :i="index"></slot>
+                <slot name="myslot" :item="v" :i="index"></slot>
             </cell>
             <!--加载更多-->
             <loading ref="loading" class="loading" @loading="onLoading" :display="showLoading ? 'show' : 'hide'">
@@ -51,7 +51,7 @@
                 var that = this;
                 that.refreshing = true;
                 that.refreshText = "正在刷新...";
-                that.$emit('getData', false, 0, res => {
+                that.$emit('getData', false, false, 0, res => {
                     that.refreshing = false;
                     // modal.alert({
                     //   message: '***' + that.refreshing,
@@ -84,7 +84,7 @@
             onLoading: function (e) {
                 var that = this;
                 that.showLoading = true;
-                that.$emit('getData', false, that.list.length / that.pageSize, res => {
+                that.$emit('getData', true, false, that.list.length / that.pageSize, res => {
                     that.showLoading = false;
                     if (mtd.isNotNull(res)) {
                         if (res.length < that.pageSize) {
@@ -106,7 +106,7 @@
 
 <style scoped="">
     .list_view {
-      flex: 1;
+        flex: 1;
     }
 
     .refresh {
@@ -141,22 +141,22 @@
         /*padding-bottom: 10px;*/
     }
 
-  .refresh-indicator {
-    margin-left: 10px;
-    font-size: 30px;
-    text-align: center;
-    color: rgb(158, 167, 180);
-  }
+    .refresh-indicator {
+        margin-left: 10px;
+        font-size: 30px;
+        text-align: center;
+        color: rgb(158, 167, 180);
+    }
 
-  .loading-indicator {
-    font-size: 30px;
-    text-align: center;
-    color: rgb(158, 167, 180);
-  }
+    .loading-indicator {
+        font-size: 30px;
+        text-align: center;
+        color: rgb(158, 167, 180);
+    }
 
-  .indicator {
-    height: 60px;
-    width: 60px;
-    color: rgb(158, 167, 180);
-  }
+    .indicator {
+        height: 60px;
+        width: 60px;
+        color: rgb(158, 167, 180);
+    }
 </style>

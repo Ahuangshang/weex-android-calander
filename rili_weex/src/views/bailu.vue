@@ -2,7 +2,7 @@
   <scroller>
     <div>
       <image :style="{ width: img_w_top, height:img_1_h }"
-             src="http://zerosboy.site/Ahuangshang/img/bailu/img_1.jpg"
+             src="http://imengu.cn/Ahuangshang/img/bailu/img_1.jpg"
              placeholder=""></image>
       <div :style="{ marginLeft: font(contentMargin),marginRight: font(contentMargin)}">
         <text :style="{ fontSize: font(tex_size_1),marginTop: font(topMargin), margin:font(contentMargin),lineHeight:font(line_height)}"
@@ -15,7 +15,7 @@
           style="color: #334f16;" :value=content_1>
         </text>
         <image :style="{ width:img_w, height:img_2_h }"
-               src="http://zerosboy.site/Ahuangshang/img/bailu/img_2.jpg"
+               src="http://imengu.cn/Ahuangshang/img/bailu/img_2.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: font(tex_size_2)}" style="margin-top: 15px"> 气候特征</text>
         <text
@@ -23,7 +23,7 @@
           style="color: #334f16;" :value=content_2>
         </text>
         <image :style="{ width:img_w, height:img_3_h }"
-               src="http://zerosboy.site/Ahuangshang/img/bailu/img_3.jpg"
+               src="http://imengu.cn/Ahuangshang/img/bailu/img_3.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: font(tex_size_2)}" style="margin-top: 15px"> 民俗</text>
         <text
@@ -31,7 +31,7 @@
           style="color: #334f16;" :value=content_3>
         </text>
         <image :style="{ width:img_w, height:img_4_h }"
-               src="http://zerosboy.site/Ahuangshang/img/bailu/img_4.jpg"
+               src="http://imengu.cn/Ahuangshang/img/bailu/img_4.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: font(tex_size_2)}" style="margin-top: 15px"> 农事</text>
         <text
@@ -39,7 +39,7 @@
           style="color: #334f16;" :value=content_4>
         </text>
         <image :style="{ width: img_w, height:img_5_h }"
-               src="http://zerosboy.site/Ahuangshang/img/bailu/img_5.jpg"
+               src="http://imengu.cn/Ahuangshang/img/bailu/img_5.jpg"
                placeholder=""></image>
         <text :style="{ fontSize: font(tex_size_2)}" style="margin-top: 15px">诗词</text>
         <text
@@ -68,7 +68,7 @@
         default: 469
       },
       img_2_h: {
-        default: 520
+        default: 277
       },
 
       img_3_h: {

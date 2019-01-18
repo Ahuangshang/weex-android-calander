@@ -15,6 +15,7 @@ import com.tencent.bugly.beta.Beta;
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.activity.DayDetailActivity;
+import cn.ltwc.cft.activity.MoreActivity;
 import cn.ltwc.cft.activity.MyX5WebView;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.entiy.LocationInfo;
@@ -71,13 +72,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         DayDetailActivity.class);
                 intent.putExtra(Constant.RILIINFO, HomeFragmentHelper.getInstance().rbean);
                 jumpToActivity(intent);
-//                jumpToActivity(new Intent(c, MoreActivity.class));
                 break;
             case R.id.more_lotter:// 更多开奖
                 Intent more = new Intent(c, MyX5WebView.class);
                 more.putExtra(
                         Constant.WEBURL,
-                        "http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html#?page=kjgg_index&tag_from=500");
+                        "http://cp.lexiucp.com/android_asset/www/newmicai/lotteryinfo/kjgg.html?tag_from=500#?page=kjgg_index");
                 more.putExtra(Constant.WEBTITLE, "开奖公告");
                 jumpToActivity(more);
                 break;
@@ -85,7 +85,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Intent ss = new Intent(c, MyX5WebView.class);
                 ss.putExtra(
                         Constant.WEBURL,
-                        "http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html?tag_from=500#?page=kjgg_list&lot_code=50");
+                        "http://cp.lexiucp.com/android_asset/www/newmicai/lotteryinfo/kjgg.html?tag_from=500#?page=kjgg_list&lot_code=50");
                 ss.putExtra(Constant.WEBTITLE, "双色球开奖详情");
                 jumpToActivity(ss);
                 break;

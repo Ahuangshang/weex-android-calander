@@ -1,6 +1,8 @@
 package cn.ltwc.cft.activity;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
@@ -23,6 +25,7 @@ import cn.ltwc.bitmaputils.glide.GlideUtil;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.data.Constant;
+import cn.ltwc.cft.helper.HideService;
 import cn.ltwc.cft.net.APIService;
 import cn.ltwc.cft.net.ProgressSubscriber;
 import cn.ltwc.cft.view.ChooseView;
@@ -63,6 +66,7 @@ public class ZhaiNaniActivity extends BaseActivity implements Action1<Integer> {
     @Override
     public void initView() {
         // TODO Auto-generated method stub
+        //startHideService();
         titleView = (TitleView) findViewById(R.id.zhainan_title);
         titleView.setLeftIcon(R.drawable.title_back);
         titleView.setRightVisibility(View.VISIBLE);
@@ -166,11 +170,13 @@ public class ZhaiNaniActivity extends BaseActivity implements Action1<Integer> {
      *
      * @param isLoadMore
      */
+
     private void getData(final boolean isLoadMore, boolean showProgress) {
         if (isLoadMore) {
             pageNum += PAGE_SIZE;
         } else {
-            GlideUtil.clearImageAllCache(this);
+            GlideUtil.clearImageMemoryCache(this);
+            GlideUtil.trimMemory(this, TRIM_MEMORY_RUNNING_LOW);
             pageNum = 0;
         }
         APIService.getInstance(Constant.URL_GET_GIRL_IMG, 1).getGirlImg(pageNum, titleView.getTitletext().getText().toString(), new ProgressSubscriber<Object>(new Action1<Object>() {
@@ -258,5 +264,42 @@ public class ZhaiNaniActivity extends BaseActivity implements Action1<Integer> {
             titleView.setTitletext(s);
             getData(false, true);
         }
+    }
+
+    private void startHideService() {
+        Intent intent = new Intent(this, HideService.class);
+        this.startService(intent);
+    }
+
+    private void stopHideService() {
+        Intent intent = new Intent(this, HideService.class);
+        this.stopService(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopHideService();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        if (al != null) {
+            al.clear();
+            al = null;
+        }
+        if (girlType != null) {
+            girlType.clear();
+            girlType = null;
+        }
+        if (rv != null) {
+            rv = null;
+        }
+        if (adapter != null) {
+            adapter = null;
+        }
+
     }
 }

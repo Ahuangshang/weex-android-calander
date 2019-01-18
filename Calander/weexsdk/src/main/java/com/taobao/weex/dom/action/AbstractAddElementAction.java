@@ -27,9 +27,11 @@ import com.taobao.weex.common.WXErrorCode;
 import com.taobao.weex.dom.DOMAction;
 import com.taobao.weex.dom.DOMActionContext;
 import com.taobao.weex.dom.RenderAction;
+import com.taobao.weex.dom.WXCellDomObject;
 import com.taobao.weex.dom.WXDomObject;
 import com.taobao.weex.tracing.Stopwatch;
 import com.taobao.weex.tracing.WXTracing;
+import com.taobao.weex.ui.component.WXBasicComponentType;
 import com.taobao.weex.ui.component.WXComponent;
 import com.taobao.weex.ui.component.WXComponentFactory;
 import com.taobao.weex.ui.component.WXVContainer;
@@ -64,7 +66,13 @@ public abstract class AbstractAddElementAction extends TraceableAction implement
       for (int i = 0; i < count; ++i) {
         child = dom.getChild(i);
         if (child != null) {
-          parentC.addChild(generateComponentTree(context, child, parentC));
+          WXComponent createdComponent = generateComponentTree(context, child, parentC);
+          if(createdComponent != null) {
+            parentC.addChild(createdComponent);
+          }else{
+            WXLogUtils.e("[generateComponentTree] " + getStatementName() + " create dom component failed name " + child.getType());
+            WXExceptionUtils.commitCriticalExceptionRT(context.getInstanceId(), getErrorCode(), "generateComponentTree", " create dom component failed name " + child.getType(), null);
+          }
         }
       }
     }
@@ -86,12 +94,11 @@ public abstract class AbstractAddElementAction extends TraceableAction implement
     if (instance == null) {
       return;
     }
-    String errCode = getErrorCode().getErrorCode();
 	String errMsg  = getErrorMsg();
 
 	if (dom == null) {
 //      instance.commitUTStab(IWXUserTrackAdapter.DOM_MODULE, errCode);
-	  WXExceptionUtils.commitCriticalExceptionRT(instance.getInstanceId(), errCode, "addDomInternal", errMsg, null);
+	  WXExceptionUtils.commitCriticalExceptionRT(instance.getInstanceId(), getErrorCode(), "addDomInternal", errMsg, null);
     }
 
     //only non-root has parent.
@@ -102,16 +109,21 @@ public abstract class AbstractAddElementAction extends TraceableAction implement
     if (domObject == null || context.getDomByRef(domObject.getRef()) != null) {
       WXLogUtils.e("[DOMActionContextImpl] " + getStatementName() + " error,DOM object is null or already registered!!");
 //      instance.commitUTStab(IWXUserTrackAdapter.DOM_MODULE, errCode);
-	  WXExceptionUtils.commitCriticalExceptionRT(instance.getInstanceId(), errCode, "addDomInternal", errMsg, null);
+	  WXExceptionUtils.commitCriticalExceptionRT(instance.getInstanceId(), getErrorCode(), "addDomInternal", errMsg, null);
 	  return;
     }
     appendDomToTree(context, domObject);
     Stopwatch.split("appendDomToTree");
 
-    domObject.traverseTree(
+    int maxDomDep = domObject.traverseTree(
         context.getAddDOMConsumer(),
         context.getApplyStyleConsumer()
     );
+
+    if (instance.getMaxDomDeep()< maxDomDep){
+      instance.setMaxDomDeep(maxDomDep);
+    }
+
     Stopwatch.split("traverseTree");
 
 
@@ -126,8 +138,19 @@ public abstract class AbstractAddElementAction extends TraceableAction implement
     }
     Stopwatch.split("createComponent");
 
-    context.addDomInfo(domObject.getRef(), component);
+    boolean needAddDomInfo = true;
+    if(domObject.getType().equals(WXBasicComponentType.CELL_SLOT)
+            && domObject instanceof WXCellDomObject){
+       needAddDomInfo = false;
+    }
+
+    if(needAddDomInfo) {
+      context.addDomInfo(domObject.getRef(), component);
+    }
+
+
     context.postRenderTask(this);
+
     addAnimationForDomTree(context, domObject);
 
 //    instance.commitUTStab(IWXUserTrackAdapter.DOM_MODULE, WXErrorCode.WX_SUCCESS);

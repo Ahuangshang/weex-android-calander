@@ -23,5 +23,5 @@ package com.taobao.weex.adapter;
  */
 
 public interface ICrashInfoReporter {
-  void addCrashInfo(String key ,String value);
+  void addCrashInfo(String key, String value);
 }

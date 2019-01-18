@@ -38,7 +38,7 @@ import com.taobao.weex.utils.WXLogUtils;
  * Module class for dom operation. Methods in this class will run in dom thread by default.
  * Actually, methods in this class are wrapper classes, they just wrap method call info, and hand
  * the wrapped info to the {@link WXDomHandler} for further process. This class is also singleton
- * in the {@link com.taobao.weex.WXSDKInstance}
+ * in the {@link WXSDKInstance}
  * </p>
  * <p>
  *   This module is work different with other regular module, method is invoked directly, without reflection.
@@ -61,6 +61,9 @@ public final class WXDomModule extends WXModule {
   public static final String UPDATE_FINISH = "updateFinish";
   public static final String SCROLL_TO_ELEMENT = "scrollToElement";
   public static final String ADD_RULE = "addRule";
+
+  public static final String UPDATE_COMPONENT_DATA = "updateComponentData";
+
   public static final String GET_COMPONENT_RECT = "getComponentRect";
 
   public static final String WXDOM = "dom";
@@ -97,7 +100,9 @@ public final class WXDomModule extends WXModule {
     try {
       Action action = Actions.get(method,args);
       if(action == null){
-        WXLogUtils.e("Unknown dom action.");
+         WXLogUtils.e("Unknown dom action "
+                 +  method + " args "  + (args == null ? " null" : args.toJSONString()));
+         return null;
       }
       if(action instanceof DOMAction){
         postAction((DOMAction)action, CREATE_BODY.equals(method) || ADD_RULE.equals(method));

@@ -28,11 +28,11 @@ import java.util.Map;
  * storage implementation.
  * */
 public interface IWXStorageAdapter {
-    void setItem(String key, String value,OnResultReceivedListener listener);
+    void setItem(String key, String value, OnResultReceivedListener listener);
 
-    void getItem(String key,OnResultReceivedListener listener);
+    void getItem(String key, OnResultReceivedListener listener);
 
-    void removeItem(String key,OnResultReceivedListener listener);
+    void removeItem(String key, OnResultReceivedListener listener);
 
     void length(OnResultReceivedListener listener);
 
@@ -46,7 +46,7 @@ public interface IWXStorageAdapter {
      * the callback of storage operation.
      * */
     interface OnResultReceivedListener {
-        void onReceived(Map<String,Object> data);
+        void onReceived(Map<String, Object> data);
     }
 
 }

@@ -38,7 +38,7 @@
     "weex-vue-render": "^1.0.4",
     "vue-template-compiler": "^2.5.9",
     "weex-html5": "^0.4.1",
-    "weex-ui": "^0.3.12"
+    "weex-ui": "^0.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",
@@ -59,7 +59,7 @@
     "vue-loader": "^12.2.2",
     "webpack": "^2.7.0",
     "weex-devtool": "^0.2.64",
-    "weex-loader": "^0.6.0-beta.3",
+    "weex-loader": "^0.7.2",
     "weex-vue-precompiler": "^0.1.17"
   }
 }

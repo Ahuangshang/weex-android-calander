@@ -42,37 +42,48 @@ public class ImageAdapter implements IWXImgLoaderAdapter {
                     if (url.contains("weather/")) {
                         Glide.with(WXEnvironment.getApplication()).load(url).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
                     } else {
-                        Glide.with(WXEnvironment.getApplication()).load(url).error(R.drawable.pre_load).listener(new RequestListener<String, GlideDrawable>() {
-                            @Override
-                            public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
-                                view.setBackgroundColor(Color.parseColor("#c3c3c3"));
-                                view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                return false;
-                            }
+                        if (url.contains("api.jisuapi.com")) {
+                            //不想在新闻页面加载gif图，太费内存
+                            Glide.with(WXEnvironment.getApplication()).load(url).asBitmap().error(R.drawable.pre_load).listener(new MyRequestListener(view)).diskCacheStrategy(DiskCacheStrategy.RESULT).override(270, 140).into(view);
 
-                            @Override
-                            public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
-                                return false;
-                            }
-                        }).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+                        } else {
+                            Glide.with(WXEnvironment.getApplication()).load(url).error(R.drawable.pre_load).listener(new MyRequestListener(view)).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+
+                        }
                     }
                 } else {
-                    Glide.with(WXEnvironment.getApplication()).load(url).placeholder(R.drawable.pre_load).error(R.drawable.pre_load).listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String s, Target<GlideDrawable> target, boolean b) {
-                            view.setBackgroundColor(Color.parseColor("#c3c3c3"));
-                            view.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            return false;
-                        }
+                    if (url.contains("api.jisuapi.com")) {
+                        //不想在新闻页面加载gif图，太费内存
+                        Glide.with(WXEnvironment.getApplication()).load(url).asBitmap().placeholder(R.drawable.pre_load).error(R.drawable.pre_load).listener(new MyRequestListener(view)).diskCacheStrategy(DiskCacheStrategy.RESULT).override(270, 140).into(view);
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable glideDrawable, String s, Target<GlideDrawable> target, boolean b, boolean b1) {
-                            return false;
-                        }
-                    }).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+                    } else {
+                        Glide.with(WXEnvironment.getApplication()).load(url).placeholder(R.drawable.pre_load).error(R.drawable.pre_load).listener(new MyRequestListener(view)).diskCacheStrategy(DiskCacheStrategy.NONE).into(view);
+
+                    }
                 }
 
             }
         }, 0);
+    }
+
+    class MyRequestListener implements RequestListener {
+
+        private ImageView imageView;
+
+        public MyRequestListener(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        public boolean onException(Exception e, Object o, Target target, boolean b) {
+            imageView.setBackgroundColor(Color.parseColor("#c3c3c3"));
+            imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Object o, Object o2, Target target, boolean b, boolean b1) {
+            return false;
+        }
     }
 }

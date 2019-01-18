@@ -102,7 +102,9 @@ public class ToastUtil {
                     @Override
                     public void run() {
                         synchronized (synObj) {
-                            Toast.makeText(ViewUtils.getApplicationContext(), msg, len).show();
+                            if (ViewUtils.getApplicationContext() != null) {
+                                Toast.makeText(ViewUtils.getApplicationContext(), msg, len).show();
+                            }
                         }
                     }
                 });
@@ -123,7 +125,9 @@ public class ToastUtil {
                     @Override
                     public void run() {
                         synchronized (synObj) {
-                            Toast.makeText(ViewUtils.getApplicationContext(), msg, len).show();
+                            if (ViewUtils.getApplicationContext() != null) {
+                                Toast.makeText(ViewUtils.getApplicationContext(), msg, len).show();
+                            }
                         }
                     }
                 });
@@ -146,10 +150,12 @@ public class ToastUtil {
                     @Override
                     public void run() {
                         synchronized (synObj) {
-                            Toast t = Toast.makeText(ViewUtils.getApplicationContext(), msg,
-                                    len);
-                            t.setGravity(Gravity.CENTER, 0, 0);
-                            t.show();
+                            if (ViewUtils.getApplicationContext() != null) {
+                                Toast t = Toast.makeText(ViewUtils.getApplicationContext(), msg,
+                                        len);
+                                t.setGravity(Gravity.CENTER, 0, 0);
+                                t.show();
+                            }
                         }
                     }
                 });
@@ -170,16 +176,16 @@ public class ToastUtil {
                     @Override
                     public void run() {
                         synchronized (synObj) {
-                            Toast t = Toast.makeText(ViewUtils.getApplicationContext(), msg,
-                                    len);
-                            t.setGravity(Gravity.CENTER, 0, 0);
-                            t.show();
+                            if (ViewUtils.getApplicationContext() != null) {
+                                Toast t = Toast.makeText(ViewUtils.getApplicationContext(), msg,
+                                        len);
+                                t.setGravity(Gravity.CENTER, 0, 0);
+                                t.show();
+                            }
                         }
                     }
                 });
             }
         }).start();
     }
-
-
 }

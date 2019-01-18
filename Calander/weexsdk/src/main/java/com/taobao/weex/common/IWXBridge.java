@@ -18,6 +18,9 @@
  */
 package com.taobao.weex.common;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.bridge.WXJSObject;
 import com.taobao.weex.bridge.WXParams;
 
@@ -58,7 +61,36 @@ public interface IWXBridge extends IWXObject {
   byte[] execJSWithResult(String instanceId, String namespace, String function, WXJSObject[] args);
 
 
+/**
+   * createInstance
+   * @param instanceId
+   * @param namespace
+   * @param function
+   * @param args
+   * @return
+   */
+  int createInstanceContext(String instanceId, String namespace, String function, WXJSObject[] args);
+
+  /**
+   * destoryInstance
+   * @param instanceId
+   * @param namespace
+   * @param function
+   * @param args
+   * @return
+   */
+  int destoryInstance(String instanceId, String namespace, String function, WXJSObject[] args);
   int execJSService(String javascript);
+  
+    /**
+   * execJSOnInstance
+   * @param instanceId
+   * @param script
+   * @param type
+   * @return
+   */
+
+  String execJSOnInstance(String instanceId, String script, int type);
 
   /**
    * take the heap snapshot and serialize the heap to a local file.
@@ -71,27 +103,27 @@ public interface IWXBridge extends IWXObject {
    * js call native
 
    */
-  int callNative(String instanceId, String tasks, String callback);
+  int callNative(String instanceId, JSONArray tasks, String callback);
 
-  int callAddElement(String instanceId, String ref,String dom,String index, String callback);
+  int callAddElement(String instanceId, String ref, JSONObject dom, String index, String callback);
 
   void reportJSException(String instanceId, String func, String exception);
 
-  Object callNativeModule(String instanceId, String module, String method,  byte [] arguments,  byte [] options);
+  Object callNativeModule(String instanceId, String module, String method, byte[] arguments, byte[] options);
 
-  void callNativeComponent(String instanceId, String componentRef, String method,  byte [] arguments,  byte [] options);
+  void callNativeComponent(String instanceId, String componentRef, String method, byte[] arguments, byte[] options);
 
   int callCreateBody(String instanceId, String tasks, String callback);
 
-  int callUpdateFinish(String instanceId,  byte [] tasks, String callback);
+  int callUpdateFinish(String instanceId, byte[] tasks, String callback);
 
-  int callCreateFinish(String instanceId,  byte [] tasks, String callback);
+  int callCreateFinish(String instanceId, byte[] tasks, String callback);
 
-  int callRefreshFinish(String instanceId,  byte [] tasks, String callback);
+  int callRefreshFinish(String instanceId, byte[] tasks, String callback);
 
-  int callUpdateAttrs(String instanceId, String ref,  byte [] tasks, String callback);
+  int callUpdateAttrs(String instanceId, String ref, byte[] tasks, String callback);
 
-  int callUpdateStyle(String instanceId, String ref,  byte [] tasks, String callback);
+  int callUpdateStyle(String instanceId, String ref, byte[] tasks, String callback);
 
   int callRemoveElement(String instanceId, String ref, String callback);
 

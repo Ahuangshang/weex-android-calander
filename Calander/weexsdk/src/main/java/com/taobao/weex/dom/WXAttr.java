@@ -79,7 +79,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
     if (attr == null) {
       return null;
     }
-    Object src = attr.get(Constants.Name.PREFIX);
+    Object src = attr.get(Name.PREFIX);
     if (src == null) {
       return null;
     }
@@ -90,7 +90,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
     if (attr == null) {
       return null;
     }
-    Object src = attr.get(Constants.Name.SUFFIX);
+    Object src = attr.get(Name.SUFFIX);
     if (src == null) {
       return null;
     }
@@ -106,7 +106,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
     if (attr == null) {
       return null;
     }
-    Object src = attr.get(Constants.Name.VALUE);
+    Object src = attr.get(Name.VALUE);
     if (src == null) {
       src = attr.get("content");
       if (src == null) {
@@ -131,9 +131,9 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public WXImageSharpen getImageSharpen() {
-    Object obj = get(Constants.Name.SHARPEN);
+    Object obj = get(Name.SHARPEN);
     if (obj == null) {
-      obj = get(Constants.Name.IMAGE_SHARPEN);
+      obj = get(Name.IMAGE_SHARPEN);
     }
     if (obj == null) {
       return WXImageSharpen.UNSHARPEN;
@@ -148,7 +148,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public String getImageSrc() {
-    Object src = get(Constants.Name.SRC);
+    Object src = get(Name.SRC);
     if (src == null) {
       return null;
     }
@@ -156,7 +156,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public boolean canRecycled() {
-    Object obj = get(Constants.Name.RECYCLE);
+    Object obj = get(Name.RECYCLE);
     if (obj == null) {
       return true;
     }
@@ -169,7 +169,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public boolean showIndicators() {
-    Object obj = get(Constants.Name.SHOW_INDICATORS);
+    Object obj = get(Name.SHOW_INDICATORS);
     if (obj == null) {
       return true;
     }
@@ -183,7 +183,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public boolean autoPlay() {
-    Object obj = get(Constants.Name.AUTO_PLAY);
+    Object obj = get(Name.AUTO_PLAY);
     if (obj == null) {
       return false;
     }
@@ -197,14 +197,14 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public String getScope() {
-    Object src = get(Constants.Name.SCOPE);
+    Object src = get(Name.SCOPE);
     if (src == null) {
       return null;
     }
     return src.toString();
   }
   public String getLoadMoreRetry() {
-    Object src = get(Constants.Name.LOADMORERETRY);
+    Object src = get(Name.LOADMORERETRY);
     if (src == null) {
       return null;
     }
@@ -212,7 +212,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public String getLoadMoreOffset() {
-    Object src = get(Constants.Name.LOADMOREOFFSET);
+    Object src = get(Name.LOADMOREOFFSET);
     if (src == null) {
       return null;
     }
@@ -232,7 +232,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public boolean getIsRecycleImage() {
-    Object obj = get(Constants.Name.RECYCLE_IMAGE);
+    Object obj = get(Name.RECYCLE_IMAGE);
     if (obj == null) {
       return true;
     }
@@ -253,7 +253,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public float getElevation(int viewPortW) {
-    Object obj = get(Constants.Name.ELEVATION);
+    Object obj = get(Name.ELEVATION);
     float ret = Float.NaN;
     if (obj != null) {
       String number = obj.toString();
@@ -268,13 +268,13 @@ public class WXAttr implements Map<String, Object>,Cloneable {
 
   public float getColumnWidth(){
 
-    Object obj = get(Constants.Name.COLUMN_WIDTH);
+    Object obj = get(Name.COLUMN_WIDTH);
     if (obj == null) {
       return Constants.Value.AUTO;
     }
 
     String value = String.valueOf(obj);
-    if(Constants.Name.AUTO.equals(value)){
+    if(Name.AUTO.equals(value)){
       return Constants.Value.AUTO;
     }
 
@@ -289,13 +289,13 @@ public class WXAttr implements Map<String, Object>,Cloneable {
 
   public int getColumnCount() {
 
-    Object obj = get(Constants.Name.COLUMN_COUNT);
+    Object obj = get(Name.COLUMN_COUNT);
     if (obj == null) {
       return Constants.Value.AUTO;
     }
 
     String value = String.valueOf(obj);
-    if(Constants.Name.AUTO.equals(value)){
+    if(Name.AUTO.equals(value)){
       return Constants.Value.AUTO;
     }
 
@@ -310,13 +310,13 @@ public class WXAttr implements Map<String, Object>,Cloneable {
 
   public float getColumnGap() {
 
-    Object obj = get(Constants.Name.COLUMN_GAP);
+    Object obj = get(Name.COLUMN_GAP);
     if (obj == null) {
       return Constants.Value.COLUMN_GAP_NORMAL;
     }
 
     String value = String.valueOf(obj);
-    if (Constants.Name.NORMAL.equals(value)) {
+    if (Name.NORMAL.equals(value)) {
       return Constants.Value.COLUMN_GAP_NORMAL;
     }
 
@@ -330,7 +330,7 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   public int getLayoutType(){
-    Object obj = get(Constants.Name.LAYOUT);
+    Object obj = get(Name.LAYOUT);
     if (obj == null) {
       return WXRecyclerView.TYPE_LINEAR_LAYOUT;
     }
@@ -455,14 +455,14 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   /**
    * filter dynamic state ment
    * */
-  private Map<String, Object> filterBindingStatement(Map attrs) {
+  public Map<String, Object> filterBindingStatement(Map attrs) {
     if(attrs == null || attrs.size() == 0){
       return attrs;
     }
-    Set<Map.Entry<String,Object>> entries = attrs.entrySet();
+    Set<Entry<String,Object>> entries = attrs.entrySet();
     Iterator<Entry<String,Object>> it =  entries.iterator();
     while (it.hasNext()){
-        Map.Entry<String,Object> entry = it.next();
+        Entry<String,Object> entry = it.next();
         if(filterBindingStatement(entry.getKey(), entry.getValue())){
            it.remove();
         }
@@ -511,6 +511,13 @@ public class WXAttr implements Map<String, Object>,Cloneable {
               return  true;
            }
         }
+
+        if(WXStatement.WX_ONCE.equals(key)){
+          if(mStatement == null){
+             mStatement = new WXStatement();
+          }
+          mStatement.put(key, true);
+        }
         return  false;
   }
 
@@ -519,11 +526,15 @@ public class WXAttr implements Map<String, Object>,Cloneable {
   }
 
   @Override
-  protected WXAttr clone(){
+  protected WXAttr clone() {
     WXAttr wxAttr = new WXAttr();
     wxAttr.skipFilterPutAll(attr);
-    wxAttr.mBindingAttrs = mBindingAttrs;
-    wxAttr.mStatement = mStatement;
+    if (mBindingAttrs != null) {
+      wxAttr.mBindingAttrs = new ArrayMap<>(mBindingAttrs);
+    }
+    if (mStatement != null){
+       wxAttr.mStatement = new WXStatement(mStatement);
+     }
     return wxAttr;
   }
 }

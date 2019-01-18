@@ -29,6 +29,7 @@ import cn.ltwc.viewutils.recycleviewutils.MultiItemTypeAdapter;
 import cn.ltwc.viewutils.recycleviewutils.base.ViewHolder;
 import rx.functions.Action1;
 
+import static cn.ltwc.cft.data.Constant.DEFAULT_HOST_NAME;
 import static cn.ltwc.cft.data.Constant.OPTIONS;
 import static cn.ltwc.cft.data.Constant.SHARE_URL;
 
@@ -119,7 +120,7 @@ public class TodayonhistoryActivity extends BaseActivity {
                 Intent intent = new Intent(TodayonhistoryActivity.this,
                         HistoryDetailJUHEActivity.class);
                 intent.putExtra("bean", juheList.get(position - 1));
-                intent.putExtra(SHARE_URL, "http://zerosboy.site/Ahuangshang/html/todayOnHistory.html");
+                intent.putExtra(SHARE_URL, DEFAULT_HOST_NAME + "Ahuangshang/html/todayOnHistory.html");
                 final HistoryOnTodayBeanJUHE beanJUHE = juheList.get(position - 1);
                 intent.putExtra(OPTIONS, new HashMap<String, String>() {
                     {

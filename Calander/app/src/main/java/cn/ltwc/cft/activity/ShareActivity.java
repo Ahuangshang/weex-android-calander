@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -29,6 +31,7 @@ import cn.ltwc.cft.utils.ShareUtil;
 import cn.ltwc.cft.view.MyViewPager;
 import cn.ltwc.cft.view.PageIndicatorView;
 import cn.ltwc.cft.view.PagerRecyclerAdapter;
+import cn.sharesdk.framework.Platform;
 import rx.functions.Action1;
 
 @SuppressLint("InlinedApi")
@@ -45,6 +48,7 @@ public class ShareActivity extends Activity implements OnClickListener, Action1 
     private String shareUrl;//分享的URL
     private int spanRow, spanColumn;// 每页的行数和列数
     private PageIndicatorView indicator;
+    private int shareType;//分享的类型
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,12 @@ public class ShareActivity extends Activity implements OnClickListener, Action1 
         imgPath = getIntent().getStringExtra(Constant.IMAGE_PATH);
         shareUrl = getIntent().getStringExtra(Constant.SHARE_URL);
         list = HLUtil.getShareApps(this, type);
-//        for (int i = 0; i < list.size(); i++) {
+        if (!TextUtils.isEmpty(type) && type.equals(Constant.SHARE_TYPE_IMG)) {
+            shareType = Platform.SHARE_IMAGE;
+        } else {
+            shareType = Platform.SHARE_WEBPAGE;
+        }
+        //        for (int i = 0; i < list.size(); i++) {
 //            // ResolveInfo info=list.get(i);
 //            // LogUtil.d( info.resolvePackageName);
 //            // LogUtil.d( info.activityInfo.packageName);
@@ -194,8 +203,8 @@ public class ShareActivity extends Activity implements OnClickListener, Action1 
     }
 
     private void itemClick(ResolveInfo info) {
-        if (!TextUtils.isEmpty(shareUrl) && getshareApp(info) && !TextUtils.isEmpty(msg)) {
-            ShareUtil.getInstance().doShare(msg.substring(0, msg.indexOf("\n")), msg.substring(msg.indexOf("\n") + 1, msg.lastIndexOf("\n")), shareUrl, "http://zerosboy.site/Ahuangshang/img/shareImg.png", getshareAppsharePlatform(info));
+        if (getshareApp(info) && !TextUtils.isEmpty(msg) && type.contains("image")) {
+            ShareUtil.getInstance().doShare(msg.substring(0, msg.indexOf("\n")), msg.substring(msg.indexOf("\n") + 1, msg.lastIndexOf("\n")), shareUrl, imgPath, shareType, getshareAppsharePlatform(info));
         } else {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setComponent(new ComponentName(
@@ -205,10 +214,15 @@ public class ShareActivity extends Activity implements OnClickListener, Action1 
             } else if (type.equals(Constant.SHARE_TYPE_IMG)) {
                 if (FileUtils.isExit(imgPath)) {
                     File f = new File(imgPath);
-                    Uri u = Uri.fromFile(f);
+                    Uri u = null;
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                        shareIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        u = FileProvider.getUriForFile(this, "cn.ltwc.cft.fileProvider", f);
+                    } else {
+                        u = Uri.fromFile(f);
+                    }
                     shareIntent.putExtra(Intent.EXTRA_STREAM, u);
                     shareIntent.putExtra("Kdescription", msg);
-                    // shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 }
             } else if (type.equals(Constant.SHARE_TYPE_AUDIO)) {
 

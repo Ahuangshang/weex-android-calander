@@ -13,7 +13,7 @@ import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.entiy.LocationInfo;
 import cn.ltwc.cft.rxbus.Event;
 import cn.ltwc.cft.rxbus.RxBus;
-import cn.ltwc.cft.view.TitleView;
+import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.weex.WeexUtil;
 import rx.functions.Action1;
 
@@ -23,27 +23,13 @@ import rx.functions.Action1;
  */
 @SuppressLint("ValidFragment")
 public class WeatherFragment extends BaseFragment {
-    private TitleView titleView;
     private WeexUtil weexUtil;
     private ViewGroup parent;
     private LocationInfo locationInfo;//定位信息
 
     @Override
     public void initView() {
-        //titleView = (TitleView) view.findViewById(R.id.title);
         parent = view.findViewById(R.id.parent);
-//        titleView.setLeftVisibility(View.INVISIBLE);
-//        titleView.setRightVisibility(View.INVISIBLE);// 设置右边图片不显示
-//        titleView.setTitletext("天气");
-//        titleView.getTitletext().setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                if (weexUtil != null) {
-//                    weexUtil.selectWeexUrl();
-//                }
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -82,22 +68,19 @@ public class WeatherFragment extends BaseFragment {
             }
             weexUtil = new WeexUtil("weather", new HashMap<String, Object>() {{
                 put("city", locationInfo != null ? TextUtils.isEmpty(locationInfo.getDistrict()) ? TextUtils.isEmpty(locationInfo.getCityName()) ? "杭州" : locationInfo.getCityName() : locationInfo.getDistrict() : "杭州");
+                put("cityCode", locationInfo != null ? TextUtils.isEmpty(locationInfo.getCityName()) ? FileUtils.getCityCode("杭州") : FileUtils.getCityCode(locationInfo.getCityName()) : FileUtils.getCityCode("杭州"));
             }}, parent, (Activity) c);
             weexUtil.fireFresh();
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        notifyWeather();
-
-    }
-
     private void notifyWeather() {
         if (weexUtil != null) {
-            weexUtil.setData(locationInfo != null ? TextUtils.isEmpty(locationInfo.getDistrict()) ? TextUtils.isEmpty(locationInfo.getCityName()) ? "杭州" : locationInfo.getCityName() : locationInfo.getDistrict() : "杭州");
-            weexUtil.setType("locationInfo");
+            weexUtil.setData(
+                    locationInfo != null ? TextUtils.isEmpty(locationInfo.getDistrict()) ? TextUtils.isEmpty(locationInfo.getCityName()) ? "杭州" : locationInfo.getCityName() : locationInfo.getDistrict() : "杭州"
+                    , locationInfo != null ? TextUtils.isEmpty(locationInfo.getCityName()) ? FileUtils.getCityCode("杭州") : FileUtils.getCityCode(locationInfo.getCityName()) : FileUtils.getCityCode("杭州"));
+
+            weexUtil.setType("locationInfo", "cityCode");
             weexUtil.fireFresh(false);
         }
     }

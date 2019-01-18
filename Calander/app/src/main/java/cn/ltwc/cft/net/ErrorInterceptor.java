@@ -40,6 +40,15 @@ public class ErrorInterceptor implements Interceptor {
                     request = builder.removeHeader("User-Agent").addHeader("User-Agent",
                             "Dalvik/2.1.0 (Linux; U; Android 5.0.2; MI 2S MIUI/7.11.9)").build();
                 }
+                if (jokeRequest(request)) {
+                    request = builder
+                            .removeHeader("User-Agent").addHeader("User-Agent",
+                                    "Dalvik/2.1.0 (Linux; U; Android 6.0.1; Redmi 3X MIUI/V10.1.1.0.MALCNFI)")
+                            .addHeader("X-Bmob-Application-Id", "bd55ef6c77b432734d4f07a014e2d8a4")
+                            .addHeader("X-Bmob-REST-API-Key", "cf642a58962d125ab161ab00e22d581e")
+                            .addHeader("X-Bmob-Master-Key", "938bc2a92190370b90027e8c581b2618")
+                            .build();
+                }
                 builder.method(request.method(), null);
             } else {
                 builder.method(request.method(), request.body());
@@ -94,7 +103,6 @@ public class ErrorInterceptor implements Interceptor {
         }
     }
 
-
     private String bodyToJson(Object body) {
         String json = "";
         try {
@@ -118,11 +126,12 @@ public class ErrorInterceptor implements Interceptor {
         return json;
     }
 
-    public boolean needChangeUserAgent(Request request) {
-        if (request.url().toString().contains(Constant.GET_XIAO_MI_LAYOUT2)) {
-            return true;
-        }
-        return false;
+    private boolean needChangeUserAgent(Request request) {
+        return request.url().toString().contains(Constant.GET_XIAO_MI_LAYOUT2);
+    }
+
+    private boolean jokeRequest(Request request) {
+        return request.url().toString().contains("https://api.bmob.cn");
     }
 }
 

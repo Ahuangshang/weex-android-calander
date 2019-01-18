@@ -10,8 +10,10 @@ import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import cn.ltwc.bitmaputils.glide.GlideUtil;
 import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
+import cn.ltwc.utils.LogUtil;
 import cn.ltwc.viewutils.statusbar.StatusBarUtil;
 
 
@@ -24,10 +26,10 @@ import cn.ltwc.viewutils.statusbar.StatusBarUtil;
 @SuppressLint("InlinedApi")
 public abstract class BaseActivity extends FragmentActivity {
     private int layoutResId = -1;// 布局资源
-    public Context c = BaseActivity.this;// 环境变量
-    // 定义当前屏幕的宽高
-    public int width;
-    public int height;
+    public Context c;// 环境变量
+//    // 定义当前屏幕的宽高
+//    public int width;
+//    public int height;
 
     public BaseActivity(int layoutResID) {
         this.layoutResId = layoutResID;
@@ -36,11 +38,13 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        // 得到当前屏幕的宽和高
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        width = dm.widthPixels;
-        height = dm.heightPixels;
+        c = this;
+//        // 得到当前屏幕的宽和高
+//        DisplayMetrics dm = new DisplayMetrics();
+//        getWindowManager().getDefaultDisplay().getMetrics(dm);
+//        width = dm.widthPixels;
+//        height = dm.heightPixels;
+//        LogUtil.e("*****"+width+"*********"+height);
         // 沉浸式导航栏
         StatusBarUtil.statusBarColor(this);
         AppManager.getAppManager().addActivity(this);
@@ -113,5 +117,14 @@ public abstract class BaseActivity extends FragmentActivity {
 
     public void onBackKeyDown() {
         AppManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GlideUtil.clearImageMemoryCache(this);
+        GlideUtil.trimMemory(this,TRIM_MEMORY_RUNNING_LOW);
+        setContentView(R.layout.view_null);
+        c = null;
     }
 }

@@ -56,6 +56,7 @@ import com.taobao.weex.ui.component.Scrollable;
 import com.taobao.weex.ui.component.WXBaseRefresh;
 import com.taobao.weex.ui.component.WXComponent;
 import com.taobao.weex.ui.component.WXComponentProp;
+import com.taobao.weex.ui.component.WXHeader;
 import com.taobao.weex.ui.component.WXLoading;
 import com.taobao.weex.ui.component.WXRefresh;
 import com.taobao.weex.ui.component.WXVContainer;
@@ -67,6 +68,7 @@ import com.taobao.weex.ui.view.listview.adapter.IRecyclerAdapterListener;
 import com.taobao.weex.ui.view.listview.adapter.ListBaseViewHolder;
 import com.taobao.weex.ui.view.listview.adapter.RecyclerViewBaseAdapter;
 import com.taobao.weex.ui.view.listview.adapter.WXRecyclerViewOnScrollListener;
+import com.taobao.weex.ui.view.refresh.wrapper.BounceRecyclerView;
 import com.taobao.weex.utils.WXLogUtils;
 import com.taobao.weex.utils.WXResourceUtils;
 import com.taobao.weex.utils.WXUtils;
@@ -112,6 +114,8 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
   protected int mColumnCount = 1;
   protected float mColumnGap = 0;
   protected float mColumnWidth = 0;
+  protected float mLeftGap = 0;
+  protected float mRightGap = 0;
 
   private int mOffsetAccuracy = 10;
   private Point mLastReport = new Point(-1, -1);
@@ -181,6 +185,11 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
     if (recyclerView == null || recyclerView.getAdapter() == null) {
       WXLogUtils.e(TAG, "RecyclerView is not found or Adapter is not bound");
       return;
+    }
+    if(WXUtils.getBoolean(getDomObject().getAttrs().get("prefetchGapDisable"), false)){
+        if(recyclerView.getLayoutManager() != null){
+           recyclerView.getLayoutManager().setItemPrefetchEnabled(false);
+        }
     }
 
     if (mChildren == null) {
@@ -348,6 +357,10 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
   @Override
   public void unbindStickStyle(WXComponent component) {
     stickyHelper.unbindStickStyle(component, mStickyMap);
+    WXHeader cell = (WXHeader) findTypeParent(component, WXHeader.class);
+    if(cell != null && getHostView() != null) {
+      getHostView().notifyStickyRemove(cell);
+    }
   }
 
   private
@@ -590,6 +603,9 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
             if (pos <= firstVisiblePosition || (cell.getStickyOffset() > 0 && firstVisiblePosition < pos && pos <= lastVisiblePosition  &&
                     top <= cell.getStickyOffset())) {
               beforeFirstVisibleItem = true;
+              if(pos > currentStickyPos) {
+                currentStickyPos = pos;
+              }
             }else{
               removeOldSticky = true;
             }
@@ -607,8 +623,12 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
         }
     }
 
-    if(currentStickyPos>=0){
-      bounceRecyclerView.updateStickyView(currentStickyPos);
+    if(currentStickyPos >= 0){
+        bounceRecyclerView.updateStickyView(currentStickyPos);
+    }else{
+      if(bounceRecyclerView instanceof BounceRecyclerView){
+        ((BounceRecyclerView) bounceRecyclerView).getStickyHeaderHelper().clearStickyHeaders();
+      }
     }
   }
 
@@ -752,7 +772,7 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
   /**
    * RecyclerView manage its children in a way that different from {@link WXVContainer}. Therefore,
    * {@link WXVContainer#addSubView(View, int)} is an empty implementation in {@link
-   * com.taobao.weex.ui.view.listview.WXRecyclerView}
+   * WXRecyclerView}
    */
   @Override
   public void addSubView(View child, int index) {
@@ -761,7 +781,7 @@ public abstract class BasicListComponent<T extends ViewGroup & ListComponentView
 
   /**
    * Remove the child from list. This method will use {@link
-   * java.util.List#indexOf(Object)} to retrieve the component to be deleted. Like {@link
+   * List#indexOf(Object)} to retrieve the component to be deleted. Like {@link
    * #addChild(WXComponent)}, this method will not refresh the view immediately, the adapter will
    * decide when to refresh.
    *

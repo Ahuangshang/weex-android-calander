@@ -182,7 +182,7 @@ public class WXSwipeLayout extends FrameLayout implements NestedScrollingParent,
 
 
   public void addTargetView(View mInnerView){
-    this.addView(mInnerView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+    this.addView(mInnerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     setRefreshView();
   }
   /**
@@ -190,7 +190,7 @@ public class WXSwipeLayout extends FrameLayout implements NestedScrollingParent,
    */
   private void setRefreshView() {
     // SetUp HeaderView
-    FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
+    LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, 0);
     headerView = new WXRefreshView(getContext());
     headerView.setStartEndTrim(0, 0.75f);
     headerView.setBackgroundColor(mRefreshViewBgColor);
@@ -200,7 +200,7 @@ public class WXSwipeLayout extends FrameLayout implements NestedScrollingParent,
     addView(headerView, lp);
 
     // SetUp FooterView
-    lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 0);
+    lp = new LayoutParams(LayoutParams.MATCH_PARENT, 0);
     lp.gravity = Gravity.BOTTOM;
     footerView = new WXRefreshView(getContext());
     footerView.setStartEndTrim(0.5f, 1.25f);
@@ -740,18 +740,18 @@ public class WXSwipeLayout extends FrameLayout implements NestedScrollingParent,
    * Callback on refresh finish
    */
   public void finishPullRefresh() {
-//    if (mCurrentAction == PULL_REFRESH) {
+    if (mCurrentAction == PULL_REFRESH) {
       resetHeaderView(headerView == null ? 0 : headerView.getMeasuredHeight());
-//    }
+    }
   }
 
   /**
    * Callback on loadmore finish
    */
   public void finishPullLoad() {
-//    if (mCurrentAction == LOAD_MORE) {
+    if (mCurrentAction == LOAD_MORE) {
       resetFootView(footerView == null ? 0 : footerView.getMeasuredHeight());
-//    }
+    }
   }
 
   public WXRefreshView getHeaderView() {

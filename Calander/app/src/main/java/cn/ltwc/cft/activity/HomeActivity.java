@@ -62,7 +62,7 @@ public class HomeActivity extends BaseActivity {
         fragments = new ArrayList<>();
         homeFragment = (HomeFragment) getFragment(new HomeFragment(), R.layout.fragment_home);
         weatherFragment = getFragment(new WeatherFragment(), R.layout.fragmet_news_weex);
-        newsFragment = getFragment(new NewsFragment(), R.layout.fragment_news);
+        newsFragment = getFragment(new NewsFragment(), R.layout.fragmet_weex);
         moreFragment = getFragment(new MoreFragment(), R.layout.fragmet_weex);
         fragments.add(homeFragment);
         fragments.add(weatherFragment);

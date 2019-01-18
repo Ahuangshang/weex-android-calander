@@ -33,7 +33,6 @@ public class WXNetModule extends WXModule {
                 @Override
                 public void call(Throwable throwable) {
                     callback.invokeAndKeepAlive(null);
-
                 }
             }, showLoading));
         } else if (methodType.toLowerCase().equals("post")) {

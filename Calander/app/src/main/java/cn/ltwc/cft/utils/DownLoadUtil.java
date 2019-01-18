@@ -28,6 +28,7 @@ import java.util.Set;
 
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.data.Constant;
+import cn.ltwc.utils.LogUtil;
 import cn.ltwc.utils.ToastUtil;
 import rx.functions.Action1;
 
@@ -111,6 +112,11 @@ public class DownLoadUtil {
                 directory.mkdirs();
             }
             File file = new File(directory, fileName);
+            LogUtil.e("fileName" + fileName + "\nexists" + file.exists() + "\nfileLength" + file.length());
+            //如果文件存在不再重复下载
+            if (file.exists() && file.length() > 0) {
+                return fileName;
+            }
             try {
                 HttpClient client = new DefaultHttpClient();
                 // client.getParams().setIntParameter("http.socket.timeout",3000);//设置超时

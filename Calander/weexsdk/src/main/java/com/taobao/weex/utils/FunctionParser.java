@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Parser for function like "rotate(30 ) transform(50 , 20)".
  * This class will translate the raw string presentation of a group of function(s) to give type
- * according to the {@link com.taobao.weex.utils.FunctionParser.Mapper}
+ * according to the {@link Mapper}
  */
 public class FunctionParser<K, V> {
 

@@ -115,8 +115,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackground"
-                android:drawablePadding="2dp"
                 android:drawableRight="@drawable/ic_jump"
+                android:drawablePadding="2dp"
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -255,6 +255,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" />
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/other_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/white"-->
+        <!--android:orientation="vertical" />-->
 
     <View
         android:layout_width="match_parent"

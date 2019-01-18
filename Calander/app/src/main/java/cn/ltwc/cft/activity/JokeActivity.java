@@ -52,7 +52,7 @@ public class JokeActivity extends BaseActivity {
     public void initView() {
         // TODO Auto-generated method stub
         title = (TitleView) findViewById(R.id.joke_title);
-        title.setTitletext("内涵段子");
+        title.setTitletext("一起笑吧");
         title.setRightVisibility(View.INVISIBLE);
         listJoke = (RecyclerView) findViewById(R.id.joke_list);
         freshView = (MRefreshView) findViewById(R.id.fresh_view);

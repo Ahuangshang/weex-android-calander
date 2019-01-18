@@ -49,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.taobao.weex.common.Constants.Event.SHOULD_STOP_PROPAGATION;
+import static com.taobao.weex.common.Constants.Event.STOP_PROPAGATION;
 
 public class WXGesture extends GestureDetector.SimpleOnGestureListener implements OnTouchListener {
 
@@ -130,16 +130,25 @@ public class WXGesture extends GestureDetector.SimpleOnGestureListener implement
    * shouldBubbleEvent default true
    * */
   private boolean shouldBubbleTouchEvent(MotionEvent event){
-    if(component.containsEvent(SHOULD_STOP_PROPAGATION)){
+    if(component.containsEvent(STOP_PROPAGATION)){
       if(shouldBubbleInterval > 0 && shouldBubbleCallRemainTimes > 0){
         shouldBubbleCallRemainTimes--;
         return  shouldBubbleResult;
       }
       Map<String, Object> eventMap = createFireEventParam(event, CUR_EVENT, null);
       eventMap.put("type", "touch");
-      EventResult result = component.fireEventWait(SHOULD_STOP_PROPAGATION, eventMap);
+      if(event.getAction() == MotionEvent.ACTION_DOWN){
+        eventMap.put("action", START);
+      }else if(event.getAction() == MotionEvent.ACTION_CANCEL
+              ||  event.getAction() == MotionEvent.ACTION_UP){
+        eventMap.put("action", END);
+      }else{
+        eventMap.put("action", MOVE);
+      }
+      EventResult result = component.fireEventWait(STOP_PROPAGATION, eventMap);
       if(result.isSuccess() && result.getResult() != null){
-        shouldBubbleResult = WXUtils.getBoolean(result.getResult(), shouldBubbleResult);
+        boolean stopPropagation = WXUtils.getBoolean(result.getResult(), !shouldBubbleResult);
+        shouldBubbleResult = !stopPropagation;
       }
       shouldBubbleCallRemainTimes = shouldBubbleInterval;
       return shouldBubbleResult;
@@ -186,7 +195,7 @@ public class WXGesture extends GestureDetector.SimpleOnGestureListener implement
           result |= handlePanMotionEvent(event);
           break;
       }
-      if(component.containsEvent(SHOULD_STOP_PROPAGATION)){
+      if(component.containsEvent(STOP_PROPAGATION)){
         ViewGroup parent = (ViewGroup) v.getParent();
         boolean requestDisallowInterceptTouchEvent = false;
         if(parent != null){
@@ -198,9 +207,9 @@ public class WXGesture extends GestureDetector.SimpleOnGestureListener implement
         if(component.getParent() != null){
           component.getParent().requestDisallowInterceptTouchEvent(requestDisallowInterceptTouchEvent);
         }
-      }
-      if(mIsTouchEventConsumed){//when touch event consumed by one gesture, other component should not consumed
-        event.setAction(MotionEvent.ACTION_CANCEL);
+        if(mIsTouchEventConsumed && WXUtils.getBoolean(component.getDomObject().getAttrs().get("cancelTouchOnConsume"), false)){//when touch event consumed by one gesture, other component should not consumed
+          event.setAction(MotionEvent.ACTION_CANCEL);
+        }
       }
       return result;
     } catch (Exception e) {
@@ -260,7 +269,7 @@ public class WXGesture extends GestureDetector.SimpleOnGestureListener implement
 
   /**
    *
-   * @param WXGestureType possible low-level gesture, defined in {@link com.taobao.weex.common.Constants.Event}
+   * @param WXGestureType possible low-level gesture, defined in {@link Constants.Event}
    * @param motionEvent motionEvent, which contains all pointers event in a period of time
    * @return true if this event is handled, otherwise false.
    */
@@ -374,7 +383,12 @@ public class WXGesture extends GestureDetector.SimpleOnGestureListener implement
       pageXY = getEventLocInPageCoordinate(motionEvent, pointerIndex, pos);
       screenXY = getEventLocInScreenCoordinate(motionEvent, pointerIndex, pos);
     }
-    return createJSONObject(screenXY, pageXY, (float) motionEvent.getPointerId(pointerIndex));
+    JSONObject map = createJSONObject(screenXY, pageXY, (float) motionEvent.getPointerId(pointerIndex));
+    float force = motionEvent.getPressure();
+    if(force > 0 && force < 1) {
+      map.put("force", motionEvent.getPressure());
+    }
+    return map;
   }
 
   /**

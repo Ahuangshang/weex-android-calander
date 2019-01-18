@@ -37,6 +37,7 @@ import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.cft.weex.WeexActivity;
 import rx.functions.Action1;
 
+import static cn.ltwc.cft.data.Constant.DEFAULT_HOST_NAME;
 import static cn.ltwc.cft.data.Constant.OPTIONS;
 import static cn.ltwc.cft.data.Constant.SHARE_URL;
 
@@ -113,7 +114,9 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements Action1<V
                     }
                     shareUrl = shareUrl.substring(0, shareUrl.length() - 1);
                 }
-                HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_WEB, getString(R.string.share_today_onhistory) + "\n" + bean.getTitle() + "\n" + shareUrl, null, shareUrl);
+                HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_WEB,
+                        getString(R.string.share_today_onhistory) + "\n" + bean.getTitle() + "\n" + shareUrl,
+                        DEFAULT_HOST_NAME+"Ahuangshang/img/image_icon/todayonHistory.png", shareUrl);
             }
         });
         a.setListener(this);

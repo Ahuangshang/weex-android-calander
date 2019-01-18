@@ -63,9 +63,9 @@ public class WXAnimationBean {
     public final static String WX_SCALE = "scale";
     public final static String WX_ROTATE_X ="rotateX";
     public final static String WX_ROTATE_Y ="rotateY";
-    public final static String BACKGROUND_COLOR = Constants.Name.BACKGROUND_COLOR;
-    public final static String WIDTH = Constants.Name.WIDTH;
-    public final static String HEIGHT = Constants.Name.HEIGHT;
+    public final static String BACKGROUND_COLOR = Name.BACKGROUND_COLOR;
+    public final static String WIDTH = Name.WIDTH;
+    public final static String HEIGHT = Name.HEIGHT;
     public final static String TOP = "top";
     public final static String BOTTOM = "bottom";
     public final static String RIGHT = "right";
@@ -147,11 +147,11 @@ public class WXAnimationBean {
 
     private static float parsePivotX(String x, int width,int viewportW) {
       String value = x;
-      if (WXAnimationBean.Style.LEFT.equals(x)) {
+      if (Style.LEFT.equals(x)) {
         value = ZERO;
-      } else if (WXAnimationBean.Style.RIGHT.equals(x)) {
+      } else if (Style.RIGHT.equals(x)) {
         value = FULL;
-      } else if (WXAnimationBean.Style.CENTER.equals(x)) {
+      } else if (Style.CENTER.equals(x)) {
         value = HALF;
       }
       return parsePercentOrPx(value, width,viewportW);
@@ -159,11 +159,11 @@ public class WXAnimationBean {
 
     private static float parsePivotY(String y, int height,int viewportW) {
       String value = y;
-      if (WXAnimationBean.Style.TOP.equals(y)) {
+      if (Style.TOP.equals(y)) {
         value = ZERO;
-      } else if (WXAnimationBean.Style.BOTTOM.equals(y)) {
+      } else if (Style.BOTTOM.equals(y)) {
         value = FULL;
-      } else if (WXAnimationBean.Style.CENTER.equals(y)) {
+      } else if (Style.CENTER.equals(y)) {
         value = HALF;
       }
       return parsePercentOrPx(value, height,viewportW);
@@ -220,7 +220,7 @@ public class WXAnimationBean {
     }
 
     private void initHolders(){
-      for (Map.Entry<Property<View, Float>, Float> entry : transformMap.entrySet()) {
+      for (Entry<Property<View, Float>, Float> entry : transformMap.entrySet()) {
         holders.add(PropertyValuesHolder.ofFloat(entry.getKey(), entry.getValue()));
       }
       if (!TextUtils.isEmpty(opacity)) {

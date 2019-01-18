@@ -26,7 +26,7 @@ import com.taobao.weex.ui.view.WXFrameLayout;
 
 /**
  * Views that want to receive Gesture Event must implement this interface. Besides,
- * those view must override their {@link android.view.View#dispatchTouchEvent(MotionEvent)}
+ * those view must override their {@link View#dispatchTouchEvent(MotionEvent)}
  * and add method invocation to {@link WXGesture#onTouch(View, MotionEvent)}.
  * Refer to {@link WXFrameLayout#dispatchTouchEvent(MotionEvent)}} for more info.
  *

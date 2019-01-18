@@ -25,7 +25,7 @@ import java.lang.reflect.Type;
  * Created by sospartan on 6/16/16.
  */
 public interface Invoker {
-  Object invoke(Object receiver,Object...params) throws InvocationTargetException, IllegalAccessException;
+  Object invoke(Object receiver, Object... params) throws InvocationTargetException, IllegalAccessException;
 
   Type[] getParameterTypes();
 

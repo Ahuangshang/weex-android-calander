@@ -92,7 +92,7 @@ public abstract class BaseBounceView<T extends View> extends FrameLayout {
      */
     private WXSwipeLayout createBounceView(Context context) {
         swipeLayout = new WXSwipeLayout(context);
-        swipeLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        swipeLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mInnerView = setInnerView(context);
         if (mInnerView == null)
             return null;
