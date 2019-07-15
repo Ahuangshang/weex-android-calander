@@ -54,6 +54,6 @@
    <img src="http://imengu.cn/Ahuangshang/img/github/liveTwo.png" width = 30% height = 30% />
 </div>
    
-### 如果喜欢的话请start一下，谢谢！
+### 如果喜欢的话请star一下，谢谢！
 
 
