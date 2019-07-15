@@ -7,19 +7,30 @@
 
 ## 1、![avatar](http://imengu.cn/Ahuangshang/img/github/launcher.jpg)
 
-## 2、![avatar](http://imengu.cn/Ahuangshang/img/github/main_1.jpg)   ![avatar](http://imengu.cn/Ahuangshang/img/github/main_2.jpg) ![avatar](http://imengu.cn/Ahuangshang/img/github/main_3.jpg)![avatar](http://imengu.cn/Ahuangshang/img/github/main_4.jpg) ![avatar](http://imengu.cn/Ahuangshang/img/github/ssq.png) ![avatar](http://imengu.cn/Ahuangshang/img/github/dlt.png)
+## 2、![avatar](http://imengu.cn/Ahuangshang/img/github/main_1.jpg)   
+
+####  ![avatar](http://imengu.cn/Ahuangshang/img/github/ssq.png) 
+####  ![avatar](http://imengu.cn/Ahuangshang/img/github/dlt.png)
+####  ![avatar](http://imengu.cn/Ahuangshang/img/github/main_2.jpg) 
+####  ![avatar](http://imengu.cn/Ahuangshang/img/github/main_3.jpg)
+####  ![avatar](http://imengu.cn/Ahuangshang/img/github/main_4.jpg) 
    
 ## 3、![avatar](http://imengu.cn/Ahuangshang/img/github/weather.jpg)
 
-## 4、![avatar](http://imengu.cn/Ahuangshang/img/github/news_fresh.jpg) ![avatar](http://imengu.cn/Ahuangshang/img/github/news_loadmore.jpg)
+## 4、![avatar](http://imengu.cn/Ahuangshang/img/github/news_fresh.jpg) 
+![avatar](http://imengu.cn/Ahuangshang/img/github/news_loadmore.jpg)
    
 ## 5、![avatar](http://imengu.cn/Ahuangshang/img/github/more.jpg)
 
 ## 6、![avatar](http://imengu.cn/Ahuangshang/img/github/share.png)
 
-## 7、![avatar](http://imengu.cn/Ahuangshang/img/github/pic_1.png) ![avatar](http://imengu.cn/Ahuangshang/img/github/pic_2.png) ![avatar](http://imengu.cn/Ahuangshang/img/github/pic_3.png)
+## 7、![avatar](http://imengu.cn/Ahuangshang/img/github/pic_1.png) 
+![avatar](http://imengu.cn/Ahuangshang/img/github/pic_2.png) 
+![avatar](http://imengu.cn/Ahuangshang/img/github/pic_3.png)
    
-## 8、![avatar](http://imengu.cn/Ahuangshang/img/github/live_1.png) ![avatar](http://imengu.cn/Ahuangshang/img/github/live_2.png) ![avatar](http://imengu.cn/Ahuangshang/img/github/live_3.png)
+## 8、![avatar](http://imengu.cn/Ahuangshang/img/github/live_1.png) 
+![avatar](http://imengu.cn/Ahuangshang/img/github/live_2.png) 
+![avatar](http://imengu.cn/Ahuangshang/img/github/live_3.png)
    
 ### 如果喜欢的话请start一下，谢谢！
 
