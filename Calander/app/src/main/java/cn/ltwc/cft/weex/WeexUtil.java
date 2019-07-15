@@ -66,6 +66,7 @@ public class WeexUtil implements IWXRenderListener {
     private String h5Server = DEFAULT_HOST_NAME + "Ahuangshang/html/";
     //private String h5Server = "https://ahuangshang.github.io/MyWebsite/html/";
     //private String h5Server = "http://192.168.31.150:8081/dist/web/";
+    private boolean showLoad, showError;
 
     public Action1<String> getViewReLoadListener() {
         return viewReLoadListener;
@@ -75,14 +76,19 @@ public class WeexUtil implements IWXRenderListener {
         this.viewReLoadListener = viewReLoadListener;
     }
 
-
-    public WeexUtil(String jsName, Map<String, Object> options, ViewGroup group, Context context) {
+    public WeexUtil(boolean showLoad, boolean showError, String jsName, Map<String, Object> options, ViewGroup group, Context context) {
+        this.showLoad = showLoad;
+        this.showError = showError;
         this.jsName = jsName;
         this.context = context;
         this.parent = group;
         this.options = options;
         init();
         loadUrl();
+    }
+
+    public WeexUtil(String jsName, Map<String, Object> options, ViewGroup group, Context context) {
+        this(true, true, jsName, options, group, context);
     }
 
     @SuppressLint("InflateParams")
@@ -113,7 +119,9 @@ public class WeexUtil implements IWXRenderListener {
 
     private void loadUrl() {
         parent.removeAllViews();
-        parent.addView(loadingView);
+        if (showLoad) {
+            parent.addView(loadingView);
+        }
         if (!TextUtils.isEmpty(jsName)) {
             if (mWXSDKInstance != null) {
                 mWXSDKInstance.destroy();
@@ -229,18 +237,20 @@ public class WeexUtil implements IWXRenderListener {
 //            //loadH5();
 //        } else {
         if (!errorCode.equals("-1002")) {
-            //need use h5
-            //loadH5();
-            showErrorUnSopport();
-            addView(errorView);
+            if (showError) {
+                showErrorUnSopport();
+                addView(errorView);
+            }
         } else {
             viewCreateSuccess = false;
-            DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) context));
-            dialogUtil.setTop("提示").setContent(msg).setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).show();
-            addView(errorView);
+            if (showError) {
+                DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) context));
+                dialogUtil.setTop("提示").setContent(msg).setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).show();
+                addView(errorView);
+            }
+
         }
 //        }
-
 
     }
 
@@ -268,7 +278,9 @@ public class WeexUtil implements IWXRenderListener {
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         webView.setLayoutParams(layoutParams);
-        parent.addView(loadingView);
+        if (showLoad) {
+            parent.addView(loadingView);
+        }
         webView.loadUrl(getHtmlUrl(h5Server + jsName + ".html"));
     }
 
@@ -326,12 +338,12 @@ public class WeexUtil implements IWXRenderListener {
             if (prefix == null) {
                 prefix = new ArrayList<>();
                 prefix.add(serve);
-                prefix.add("http://192.168.31.101:8081/");
-                prefix.add("http://192.168.31.102:8081/");
-                prefix.add("http://192.168.31.103:8081/");
-                prefix.add("http://192.168.31.104:8081/");
-                prefix.add("http://192.168.31.105:8081/");
-                prefix.add("http://192.168.31.106:8081/");
+//                prefix.add("http://192.168.88.101:8081/");
+//                prefix.add("http://192.168.88.102:8081/");
+//                prefix.add("http://192.168.88.103:8081/");
+//                prefix.add("http://192.168.88.104:8081/");
+//                prefix.add("http://192.168.88.105:8081/");
+                prefix.add("http://192.168.88.106:8081/");
 
             }
             ChooseView chooseView = new ChooseView(context, SELECT_WEEX_URL);

@@ -48,14 +48,20 @@ public class HLUtil {
      * @return
      */
     public static String getHoliday(String nHolidayDay) {
-        String holiday = "";
-        for (int i = 0; i < Constant.holiday.length; i++) {
-            if (nHolidayDay.indexOf(Constant.holiday[i]) != -1
-                    || Constant.holiday[i].indexOf(nHolidayDay) != -1) {
-                holiday = Constant.holiday[i];
-                return holiday;
-            }
-
+        String holiday;
+//        for (int i = 0; i < Constant.holiday.length; i++) {
+//            if (nHolidayDay.indexOf(Constant.holiday[i]) != -1
+//                    || Constant.holiday[i].indexOf(nHolidayDay) != -1) {
+//                holiday = Constant.holiday[i];
+//                return holiday;
+//            }
+//
+//        }
+        if (nHolidayDay.startsWith("初") || nHolidayDay.startsWith("十") || nHolidayDay.startsWith("廿") || nHolidayDay.startsWith("三")) {
+            //没有节日
+            holiday = "";
+        } else {
+            holiday = nHolidayDay;
         }
 
         return holiday;

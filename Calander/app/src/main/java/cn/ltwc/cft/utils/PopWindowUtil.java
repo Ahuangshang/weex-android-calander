@@ -88,6 +88,8 @@ public class PopWindowUtil {
     public void show() {
         if (context instanceof BaseActivity) {
             show((BaseActivity) context, contentView, defaultShowAnimation, gravity, animationStyle, backKeyDismiss);
+        } else {
+            show((Activity) context, contentView, defaultShowAnimation, gravity, animationStyle, backKeyDismiss);
         }
     }
 
@@ -156,5 +158,12 @@ public class PopWindowUtil {
         }
         pop.update();
         pop.dismiss();
+    }
+
+    public boolean isShowing() {
+        if (pop != null) {
+            pop.isShowing();
+        }
+        return false;
     }
 }

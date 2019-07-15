@@ -2,25 +2,30 @@ package cn.ltwc.cft.weex;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.taobao.weex.annotation.JSMethod;
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;
-import com.tencent.smtt.sdk.TbsVideo;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.TVVideo;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.activity.MyX5WebView;
 import cn.ltwc.cft.data.Constant;
-import cn.ltwc.cft.utils.DownLoadUtil;
+import cn.ltwc.cft.entiy.TV;
+import cn.ltwc.cft.service.UpdateService;
 import cn.ltwc.cft.utils.HLUtil;
 import cn.ltwc.cft.utils.SchemeUtil;
 import cn.ltwc.cft.x5web.utils.X5WebView;
+import cn.ltwc.utils.LogUtil;
 import cn.ltwc.utils.SharedPreferenceUtil;
 import cn.ltwc.utils.ToastUtil;
 import cn.ltwc.viewutils.dialogutils.BtnClickListener;
@@ -140,8 +145,10 @@ public class WXEventModule extends WXModule {
         dialogUtil.setTop("提示").setContent("下载新版本").setButtonShowType(DialogUtil.BUTTON_TYPE_TWO_BTN).setLeftBtn("取消").setRightBtn("立即下载").setRightBtnClickListener(new BtnClickListener() {
             @Override
             public void btnClick() {
-                DownLoadUtil.downLoad(url);
                 ToastUtil.showMessage("应用后台下载中。。。");
+                Intent intent = new Intent(AppManager.getAppManager().getCurrentActivity(), UpdateService.class);
+                intent.putExtra("url", url);
+                AppManager.getAppManager().getCurrentActivity().startService(intent);
             }
         }).show();
 
@@ -149,7 +156,7 @@ public class WXEventModule extends WXModule {
 
     @JSMethod
     @JavascriptInterface
-    public void showDialogKnow(String title,String content) {
+    public void showDialogKnow(String title, String content) {
         DialogUtil dialogUtil = new DialogUtil(new WeakReference<Activity>((Activity) mWXSDKInstance.getContext()));
         dialogUtil.setTop("提示").setContent("下载新版本").setButtonShowType(DialogUtil.BUTTON_TYPE_ONE_BTN).setTop(title).setContent(content).show();
     }
@@ -170,10 +177,12 @@ public class WXEventModule extends WXModule {
 
     @JSMethod
     @JavascriptInterface
-    public void playVideo(String url) {
-        if (TbsVideo.canUseTbsPlayer(AppManager.getAppManager().currentActivity())) {
-            TbsVideo.openVideo(AppManager.getAppManager().currentActivity(), url);
-        }
+    public void playVideo(String url, List<TV> tvList, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) tvList);
+        bundle.putInt("position", position);
+        TVVideo.openVideo(AppManager.getAppManager().currentActivity(), url, bundle);
+
     }
 
     @JavascriptInterface
@@ -189,5 +198,11 @@ public class WXEventModule extends WXModule {
                 webView.loadUrl("javascript:getReturnData('requestNetData','" + data.toString().replace("\\", "\\\\") + "')");
             }
         });
+    }
+
+    @JSMethod
+    @JavascriptInterface
+    public void showMessage(String msg) {
+        LogUtil.e(msg);
     }
 }

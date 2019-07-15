@@ -1,5 +1,5 @@
 <template>
-    <div :class="[clickStyle(clickable)]" @click="onClick"
+    <div :class="[clickStyle(clickable)]" @click="onClick" @longpress="onLongpress"
          :style="{borderTopWidth: top_border ? '1px' : '0px',borderBottomWidth: bottom_border ? '1px' : '0px'}">
         <div style=" flex-direction: row;align-items: center;flex: 1;">
             <icon-img :imgUrl="imgUrl" :imgw="iconSize" :imgFilePath="imgFilePath" v-if="imgUrl.length>0"></icon-img>
@@ -67,6 +67,9 @@
         }, methods: {
             onClick: function () {
                 this.$emit('onClick');
+            },
+            onLongpress:function () {
+                this.$emit('onLongpress');
             },
             font: function (size) {
                 return mtd.getFontSize(size);

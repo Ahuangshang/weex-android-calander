@@ -52,17 +52,17 @@
         android:layout_height="wrap_content"
         android:background="@color/white" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/view_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <include
             layout="@layout/main_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

@@ -126,18 +126,18 @@ public class ShareUtil {
         platform.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                ToastUtil.showMessage("分享成功");
+                //ToastUtil.showMessage("分享成功");
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                LogUtil.e("***********" + throwable.getMessage());
-                ToastUtil.showMessage("分享失败");
+                //LogUtil.e("***********" + throwable.getMessage());
+               // ToastUtil.showMessage("分享失败");
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                ToastUtil.showMessage("分享取消");
+                //ToastUtil.showMessage("分享取消");
             }
         });
         platform.share(params);

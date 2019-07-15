@@ -24,13 +24,17 @@ allprojects {
         maven { url 'https://dl.bintray.com/alibabaweex/maven' }
         maven { url "https://jitpack.io" }
         jcenter()
+        flatDir {
+            dirs 'libs'
+            dirs project(':app').file('libs')
+        }
     }
 }
 ext {
     compileSdkVersion = 27
     buildToolsVersion = "27.0.2"
-    minSdkVersion = 14
-    appMinSdkVersion = 16
+    minSdkVersion = 19
+    appMinSdkVersion = 19
     targetSdkVersion = 27
     supportLibVersion = "27.0.2"
     fastjsonLibVersion = "1.1.46.android"

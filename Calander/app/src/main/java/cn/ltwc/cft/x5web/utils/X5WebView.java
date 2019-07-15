@@ -33,6 +33,7 @@ import java.util.Map;
 
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.weex.WXEventModule;
+import cn.ltwc.utils.LogUtil;
 import rx.functions.Action1;
 
 public class X5WebView extends WebView {
@@ -323,7 +324,7 @@ public class X5WebView extends WebView {
     private boolean onJsPrompt(String methodName, String blockName) {
         String tag = SecurityJsBridgeBundle.BLOCK + blockName + "-"
                 + SecurityJsBridgeBundle.METHOD + methodName;
-
+        LogUtil.e(tag);
         if (this.mJsBridges != null && this.mJsBridges.containsKey(tag)) {
             ((SecurityJsBridgeBundle) this.mJsBridges.get(tag)).onCallMethod();
             return true;
@@ -422,16 +423,16 @@ public class X5WebView extends WebView {
     }
 
     protected boolean tbs_onTouchEvent(MotionEvent event, View view) {
-        // if (getContext() instanceof RefreshActivity) {
-        // if (event.getAction() == MotionEvent.ACTION_UP && this.tog != null) {
-        // this.isClampedY = false;
-        // this.tog.setAlpha(0);
-        // this.refreshRela.layout(refreshRela.getLeft(), 0,
-        // refreshRela.getRight(), refreshRela.getBottom());
-        // this.layout(this.getLeft(), 0, this.getRight(), this.getBottom());
-        // }
-        //
-        // }
+//         if (getContext() instanceof RefreshActivity) {
+//         if (event.getAction() == MotionEvent.ACTION_UP && this.tog != null) {
+//         this.isClampedY = false;
+//         this.tog.setAlpha(0);
+//         this.refreshRela.layout(refreshRela.getLeft(), 0,
+//         refreshRela.getRight(), refreshRela.getBottom());
+//         this.layout(this.getLeft(), 0, this.getRight(), this.getBottom());
+//         }
+//
+//         }
         return super_onTouchEvent(event);
     }
 }

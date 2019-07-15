@@ -1,7 +1,7 @@
 /*
  *  Android Wheel Control.
  *  https://code.google.com/p/android-wheel/
- *  
+ *
  *  Copyright 2010 Yuri Kanivets
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,31 +72,31 @@ public class WheelView extends View {
     /**
      * Items text color
      */
-    private static final int ITEMS_TEXT_COLOR = 0xFFBBBBBB;
+    private static final int ITEMS_TEXT_COLOR = 0xFF666666;
 
     /**
      * Top and bottom shadows colors
      */
-    private static final int[] SHADOWS_COLORS = new int[]{0xFF111111,
+    private static final int[] SHADOWS_COLORS = new int[]{0x00111111,
             0x00AAAAAA, 0x00AAAAAA};
 
     /**
      * Additional items height (is added to standard text item_show_img height)
      */
     private static final int ADDITIONAL_ITEM_HEIGHT = BitMapUtil.dip2px(
-            MyApplication.getInstance(), 7.5f);
+            MyApplication.getInstance(), 30f);
     ;
 
     /**
      * Text size
      */
     private static final int TEXT_SIZE = BitMapUtil.dip2px(
-            MyApplication.getInstance(), 25);
+            MyApplication.getInstance(), 20);
 
     /**
      * Top and bottom items offset (to hide that)
      */
-    private static final int ITEM_OFFSET = TEXT_SIZE / 5;
+    private static final int ITEM_OFFSET = TEXT_SIZE / 2;
 
     /**
      * Additional width for items layout
@@ -577,7 +577,7 @@ public class WheelView extends View {
         if (itemHeight != 0) {
             return itemHeight;
         } else if (itemsLayout != null && itemsLayout.getLineCount() > 2) {
-            itemHeight = itemsLayout.getLineTop(2) - itemsLayout.getLineTop(1);
+            itemHeight = (itemsLayout.getLineTop(2) - itemsLayout.getLineTop(1));
             return itemHeight;
         }
 
@@ -1014,8 +1014,8 @@ public class WheelView extends View {
     /**
      * Scroll the wheel
      *
-     * @param itemsToSkip items to scroll
-     * @param time        scrolling duration
+     * @param itemsToScroll
+     * @param time          scrolling duration
      */
     public void scroll(int itemsToScroll, int time) {
         scroller.forceFinished(true);

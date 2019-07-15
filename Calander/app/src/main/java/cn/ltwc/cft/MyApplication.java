@@ -3,6 +3,9 @@ package cn.ltwc.cft;
 import android.app.Application;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Process;
+import android.support.multidex.MultiDex;
 
 import com.alibaba.android.bindingx.plugin.weex.BindingX;
 import com.mob.MobSDK;
@@ -11,9 +14,6 @@ import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-
-import android.content.res.Configuration;
-import android.support.multidex.MultiDex;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -201,7 +201,8 @@ public class MyApplication extends Application {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        AppManager.getAppManager().AppExit(this);
+        //AppManager.getAppManager().AppExit(this);
+        android.os.Process.killProcess(Process.myPid());
     }
 
     /**

@@ -864,7 +864,7 @@ $export$1.P = 8;   // proto
 $export$1.B = 16;  // bind
 $export$1.W = 32;  // wrap
 $export$1.U = 64;  // safe
-$export$1.R = 128; // real proto method for `library` 
+$export$1.R = 128; // real proto method for `library`
 var _export = $export$1;
 
 var toString$1 = {}.toString;
@@ -2744,7 +2744,7 @@ function _jsonp (config, callback, progressCallback) {
     console.error('[h5-render] invalid config.url in _jsonp for \'fetch\' API: '
       + config.url);
   }
-  url.params.callback = cbName;
+  url.lotterParams.callback = cbName;
   script.type = 'text/javascript';
   script.src = url.toString();
   // script.onerror is not working on IE or safari.
@@ -3117,7 +3117,7 @@ var clipboard$1 = {
  * under the License.
  */
 
-// 
+//
 
 var toString$2 = Object.prototype.toString;
 
@@ -3157,7 +3157,7 @@ function isArray (arr) {
  * under the License.
  */
 
-// 
+//
 
 /**
  * Mix properties into target object.
@@ -3696,7 +3696,7 @@ function detectAppear (context, visible, dir) {
  * under the License.
  */
 
-// 
+//
 /**
  * @fileOverview: perf data recorder.
  */
@@ -3761,7 +3761,7 @@ function collectStat () {
   // get templateUrl && JSTemplateSize
   var entries = performance && performance.getEntries && performance.getEntries();
   if (entries) {
-    var params = window.lib.httpurl(location.href).params;
+    var params = window.lib.httpurl(location.href).lotterParams;
     var bundle = params.page || params._wx_tpl;
     if (bundle) {
       var len = entries.length;
@@ -3969,7 +3969,7 @@ function tagEnd (name) {
  * under the License.
  */
 
-// 
+//
 
 var SCREEN_REC_LIMIT = 3;  // just record the first 3 times for screen-render finishing.
 var doRecord = true;
@@ -4113,7 +4113,7 @@ function getThrottleLazyload (wait, el) {
  * specific language governing permissions and limitations
  * under the License.
  */
-// 
+//
 
 /**
  * viewport priority:
@@ -4918,7 +4918,7 @@ var addPrefix = unwrapExports(index$6);
  * under the License.
  */
 
-// 
+//
 
 var noUnitsNumberKeys = [
   'flex',
@@ -6696,16 +6696,16 @@ var lib$3 = window.lib || (window.lib = {});
 var env$1 = lib$3.env || (lib$3.env = {});
 
 var search = window.location.search.replace(/^\?/, '');
-env$1.params = {};
+env$1.lotterParams = {};
 if (search) {
   var params = search.split('&');
   for (var i$1 = 0; i$1 < params.length; i$1++) {
     params[i$1] = params[i$1].split('=');
     try {
-      env$1.params[params[i$1][0]] = decodeURIComponent(params[i$1][1]);
+      env$1.lotterParams[params[i$1][0]] = decodeURIComponent(params[i$1][1]);
     }
     catch (e) {
-      env$1.params[params[i$1][0]] = params[i$1][1];
+      env$1.lotterParams[params[i$1][0]] = params[i$1][1];
     }
   }
 }
@@ -8519,7 +8519,7 @@ var scrollable = {
  * under the License.
  */
 
-// 
+//
 
 // input and textare has some common api and event
 var findEnterKeyType = function (key) {

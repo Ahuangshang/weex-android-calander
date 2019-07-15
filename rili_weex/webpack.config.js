@@ -23,7 +23,7 @@ let copyPlugin = new Copy([
     {from: './src/image', to: "./image"},
 ]);
 let plugins = [
-    bannerPlugin, optimizePlugin, copyPlugin
+    bannerPlugin, copyPlugin
 ];
 
 // 遍历文件入口,动态生成入口

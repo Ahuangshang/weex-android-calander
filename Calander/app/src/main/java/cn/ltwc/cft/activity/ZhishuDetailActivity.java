@@ -39,7 +39,7 @@ public class ZhishuDetailActivity extends BaseActivity {
     private ListView list;
     private String channelId;
     private String headPic;
-    private String title;
+    private String title, summary;
     private View headView;
     private ImageView headImg;
     private TextView headTitle, headContent;
@@ -70,6 +70,7 @@ public class ZhishuDetailActivity extends BaseActivity {
         channelId = getIntent().getStringExtra("channelId");
         headPic = getIntent().getStringExtra("headPic");
         title = getIntent().getStringExtra("title");
+        summary = getIntent().getStringExtra("summary");
     }
 
     @Override
@@ -77,8 +78,8 @@ public class ZhishuDetailActivity extends BaseActivity {
         // TODO Auto-generated method stub
         titleView.setTitletext(title);
         Glide.with(this).load(headPic).into(headImg);
-        headTitle.setText(getIntent().getStringExtra("title"));
-        headContent.setText(getIntent().getStringExtra("summary"));
+        headTitle.setText(title);
+        headContent.setText(summary);
         list.addHeaderView(headView);
         APIService.getInstance(Constant.GET_XIAO_MI_LAYOUT2, 1).getLaoutDetail(channelId, new ProgressSubscriber<Object>(new Action1<Object>() {
             @Override

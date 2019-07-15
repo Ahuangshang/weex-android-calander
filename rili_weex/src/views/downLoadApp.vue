@@ -13,8 +13,8 @@
                   :style="{fontSize:font(16)}"></text>
 
             <a href="http://imengu.cn/Ahuangshang/apk/latest.apk">
-                <div style="background-color: #31A9A5 ; border-radius: 10px;margin-top: 25px">
-                    <text style="margin: 15px;color: #fdfdfd" value="点我下载吧"
+                <div style="background-color: #31A9A5 ; border-radius: 10px;margin-top: 25px;cursor:pointer">
+                    <text style="margin: 15px;color: #fdfdfd;cursor:pointer" value="点我下载吧"
                           :style="{fontSize:font(16)}"></text>
                 </div>
             </a>

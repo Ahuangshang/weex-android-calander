@@ -1,6 +1,7 @@
 package cn.ltwc.cft.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -27,8 +28,11 @@ import java.util.Map;
 
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.activity.ErrorShowActivity;
 import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.utils.LogUtil;
+
+import static cn.ltwc.cft.data.Constant.DEBUG;
 
 /**
  * CrashHandler
@@ -37,10 +41,6 @@ import cn.ltwc.utils.LogUtil;
 
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "AA";
-
-    // CrashHandler 实例
-    private static CrashHandler INSTANCE = new CrashHandler();
-
     // 程序的 Context 对象
     private Context mContext;
     private MyApplication app;
@@ -60,11 +60,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private CrashHandler() {
     }
 
+
+    private static class SingletonHolder {
+        private static final CrashHandler INSTANCE = new CrashHandler();
+    }
+
     /**
      * 获取 CrashHandler 实例 ,单例模式
      */
     public static CrashHandler getInstance() {
-        return INSTANCE;
+        return SingletonHolder.INSTANCE;
     }
 
     /**
@@ -107,7 +112,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (ex == null) {
             return false;
         }
-        showErrorToast();
+        showErrorToast(ex);
         // 收集设备参数信息
         collectDeviceInfo(mContext);
         // 保存日志文件
@@ -115,7 +120,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         return true;
     }
 
-    private void showErrorToast() {
+    private void showErrorToast(final Throwable ex) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -176,12 +181,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      * @param ex
      * @return 返回文件名称, 便于将文件传送到服务器
      */
-    private String saveCrashInfo2File(Throwable ex) {
-        StringBuffer sb = new StringBuffer();
+    private void saveCrashInfo2File(Throwable ex) {
+        StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : infos.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            sb.append(key + "=" + value + "\n");
+            sb.append(key).append("=").append(value).append("\n");
         }
 
         Writer writer = new StringWriter();
@@ -195,24 +200,31 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         printWriter.close();
         String result = writer.toString();
         sb.append(result);
-        try {
-            String time = formatter.format(new Date());
-            String fileName = time + " error" + ".txt";
-            if (Environment.getExternalStorageState().equals(
-                    Environment.MEDIA_MOUNTED)) {
-                File dir = FileUtils.getCacheDirectory(MyApplication.getInstance(), "log");
-                if (!dir.exists()) {
-                    dir.mkdirs();
+        //开启一个错误显示页面，显示当前错误
+        if (DEBUG) {
+            Intent intent = new Intent(mContext, ErrorShowActivity.class);
+            intent.putExtra("info", sb.toString());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
+        } else {
+            //保存到手机内存
+            try {
+                String time = formatter.format(new Date());
+                String fileName = time + " error" + ".txt";
+                if (Environment.getExternalStorageState().equals(
+                        Environment.MEDIA_MOUNTED)) {
+                    File dir = FileUtils.getCacheDirectory(MyApplication.getInstance(), "log");
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
+                    FileOutputStream fos = new FileOutputStream(new File(dir, fileName));
+                    fos.write(sb.toString().getBytes());
+                    fos.flush();
+                    fos.close();
                 }
-                FileOutputStream fos = new FileOutputStream(new File(dir, fileName));
-                fos.write(sb.toString().getBytes());
-                fos.flush();
-                fos.close();
+            } catch (Exception e) {
+                LogUtil.e("an error occured while writing file...", e);
             }
-            return fileName;
-        } catch (Exception e) {
-            LogUtil.e("an error occured while writing file...", e);
         }
-        return null;
     }
 }

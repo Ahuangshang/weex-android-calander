@@ -36,7 +36,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-
             android:src="@drawable/today" />
     </RelativeLayout>
 

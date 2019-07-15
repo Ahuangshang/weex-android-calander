@@ -90,6 +90,20 @@
   }
  #---------------------------------3.反射相关的类和方法-----------------------
  #---------------------------------4.与js互相调用的类------------------------
+
+ # keep annotated by NotProguard
+ -keep @cn.ltwc.cft.annotation.NotProguard class * {*;}
+ -keep class * {
+ @cn.ltwc.cft.annotation.NotProguard <fields>;
+ }
+ -keepclassmembers class * {
+ @cn.ltwc.cft.annotation.NotProguard <methods>;
+ }
+
+
+-keepclassmembers class cn.ltwc.cft.JsCallback {
+    public *;
+ }
 #---------------------------------4.与js互相调用的类------------------------
  #---------------------------------5.第三方jar-----------------------
 #这里对第三方jar包的类不进行混淆

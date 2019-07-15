@@ -3,6 +3,7 @@ package cn.ltwc.cft.utils;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Message;
 import android.text.TextUtils;
 
 import org.apache.http.HttpEntity;
@@ -113,10 +114,6 @@ public class DownLoadUtil {
             }
             File file = new File(directory, fileName);
             LogUtil.e("fileName" + fileName + "\nexists" + file.exists() + "\nfileLength" + file.length());
-            //如果文件存在不再重复下载
-            if (file.exists() && file.length() > 0) {
-                return fileName;
-            }
             try {
                 HttpClient client = new DefaultHttpClient();
                 // client.getParams().setIntParameter("http.socket.timeout",3000);//设置超时
@@ -127,6 +124,7 @@ public class DownLoadUtil {
                     HttpEntity entity = response.getEntity();
                     InputStream input = entity.getContent();
                     long total = entity.getContentLength();
+                    //如果文件存在并且长度相同不再重复下载
                     if (file.exists() && file.length() == total) {
                         return fileName;
                     }
@@ -137,13 +135,20 @@ public class DownLoadUtil {
                         FileOutputStream fos = null;
                         try {
                             fos = new FileOutputStream(file);
-                            byte[] b = new byte[2048];
+                            byte[] buffer = new byte[2048];
                             int count = 0;
-                            int j = 0;
-                            while ((j = input.read(b)) != -1) {
-                                count += j;
-                                fos.write(b, 0, j);
-                                publishProgress((int) ((count / (float) total) * 100));
+                            int read = 0;
+                            int percent = 0;
+                            int downPercent = 0;
+                            while ((read = input.read(buffer)) != -1) {
+                                count += read;
+                                fos.write(buffer, 0, read);
+                                percent = (int) (((double) count / total) * 100);
+                                //每下载完成1%就通知修改下载进度
+                                if (percent - downPercent >= 1) {
+                                    downPercent = percent;
+                                    publishProgress(percent);
+                                }
                             }
                             fos.flush();
                         } catch (FileNotFoundException e) {

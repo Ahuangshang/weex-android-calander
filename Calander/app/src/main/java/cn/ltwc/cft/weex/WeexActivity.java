@@ -1,5 +1,6 @@
 package cn.ltwc.cft.weex;
 
+import android.content.res.Configuration;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import cn.ltwc.cft.utils.Utils;
 import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.utils.LogUtil;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static cn.ltwc.cft.data.Constant.JS_NAME;
 import static cn.ltwc.cft.data.Constant.OPTIONS;
 import static cn.ltwc.cft.data.Constant.SHARE_IMAGE_PATH;
@@ -152,5 +155,17 @@ public class WeexActivity extends BaseActivity {
     public void finish() {
         super.finish();
         GlideUtil.clearImageMemoryCache(this);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation==ORIENTATION_LANDSCAPE){
+            //横屏
+            parent.setVisibility(View.INVISIBLE);
+        }else if (newConfig.orientation==ORIENTATION_PORTRAIT){
+            //竖屏
+            parent.setVisibility(View.VISIBLE);
+        }
     }
 }

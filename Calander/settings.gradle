@@ -1,1 +1,1 @@
-include ':app', ':viewutils', ':bitmaputils','weexsdk'
+include ':app', ':viewutils', ':bitmaputils',':weexsdk',':lib_tcsuperplayer'

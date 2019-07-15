@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background"> <!-- 进度条背景色 -->
+        <shape>
+            <gradient
+                android:angle="0"
+                android:centerY="0.75"
+                android:endColor="@color/lineColor"
+                android:startColor="@color/lineColor" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress"> <!-- 进度条上的颜色 -->
+        <clip>
+            <shape>
+                <gradient
+                    android:angle="0"
+                    android:centerY="0.85"
+                    android:endColor="#ff503f"
+                    android:startColor="#ff503f" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

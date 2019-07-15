@@ -15,8 +15,8 @@
 
         <WebView
             android:id="@+id/web_filechooser"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"></WebView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ProgressBar
             android:id="@+id/bar"

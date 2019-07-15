@@ -18,4 +18,23 @@
             <enum name="FILL" value="1" />
         </attr>
     </declare-styleable>
+    <!--MarqueeText（跑马灯） 属性-->
+    <declare-styleable name="MarqueeView">
+        <attr name="Color" format="color" />
+        <attr name="Size" format="dimension"/>
+        <attr name="textGravity" format="enum">
+            <enum name="LEFT" value="0" />
+            <enum name="CENTER" value="1"/>
+            <enum name="RIGHT" value="2"/>
+        </attr>
+        <attr name="internal" format="integer"/><!--翻转的间隔时间-->
+        <attr name="flipDuration" format="integer"/><!--翻转的动画执行的时间,时间越长,速度越慢,反之越快-->
+        <!--flip方向,默认是从下往上-->
+        <attr name="flipOrientation" format="enum">
+            <!--从上往下-->
+            <enum name="topToBottom" value="0"/>
+            <!--从下往上-->
+            <enum name="bottomToTop" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

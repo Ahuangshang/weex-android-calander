@@ -1,92 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/wheel_title"
-    android:gravity="center"
-    android:orientation="vertical" >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="选择日期"
-        android:textColor="@color/white"
-        android:textSize="22sp" />
-
-    
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#31A9A5"
+        android:layout_margin="7dp"
+        android:background="@drawable/share_bg"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text="选择日期"
+            android:textColor="@color/dd_black"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/lineColor" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#6D7C90"
-            android:orientation="horizontal" >
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <cn.ltwc.cft.datapick.WheelView
-                android:id="@+id/year"
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="5dip"
-                android:layout_marginTop="10dip"
-                android:layout_weight="0.8" />
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal">
 
-            <cn.ltwc.cft.datapick.WheelView
-                android:id="@+id/month"
+                <cn.ltwc.cft.datapick.WheelView
+                    android:id="@+id/year"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <cn.ltwc.cft.datapick.WheelView
+                    android:id="@+id/month"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <cn.ltwc.cft.datapick.WheelView
+                    android:id="@+id/day"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/lineColor" />
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginTop="10dip"
-                android:layout_weight="1" />
+                android:gravity="center">
 
-            <cn.ltwc.cft.datapick.WheelView
-                android:id="@+id/day"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginRight="5dip"
-                android:layout_marginTop="10dip"
-                android:layout_weight="1" />
+                <!--<Button-->
+                <!--android:id="@+id/cancel"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/dark_blue_btn"-->
+                <!--android:text="@string/cancelBtn"-->
+                <!--android:textColor="@color/white" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="0dip"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1" />-->
+
+                <!--<Button-->
+                <!--android:id="@+id/set"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/dark_green_btn"-->
+                <!--android:text="@string/okBtn"-->
+                <!--android:textColor="@color/white" />-->
+
+                <TextView
+                    android:id="@+id/cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/day_select_cancel_bg"
+                    android:gravity="center"
+                    android:text="@string/cancelBtn"
+                    android:textColor="@color/dd_black" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="50dp"
+                    android:background="@color/lineColor" />
+
+                <TextView
+                    android:id="@+id/set"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/day_select_sure_bg"
+                    android:gravity="center"
+                    android:text="@string/okBtn"
+                    android:textColor="@color/dd_black" />
+
+
+            </LinearLayout>
         </LinearLayout>
-        
-        
-        <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/wheel_title"
-        android:gravity="center"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
-        android:paddingTop="2dip" >
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dark_blue_btn"
-            android:text="@string/cancelBtn"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/set"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dark_green_btn"
-            android:text="@string/okBtn"
-            android:textColor="@color/white" />
     </LinearLayout>
-    </LinearLayout>
-
 </LinearLayout>

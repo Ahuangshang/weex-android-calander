@@ -1,10 +1,10 @@
 package cn.ltwc.cft.helper;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -43,14 +43,14 @@ import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.data.LunarCalendar;
 import cn.ltwc.cft.datapick.PickUtils;
 import cn.ltwc.cft.db.HuangLi;
-import cn.ltwc.cft.entiy.Kaijiang;
-import cn.ltwc.cft.entiy.LocationInfo;
 import cn.ltwc.cft.net.APIService;
 import cn.ltwc.cft.net.ProgressSubscriber;
 import cn.ltwc.cft.utils.Utils;
 import cn.ltwc.cft.view.ContainerLayout;
 import cn.ltwc.cft.view.MyGridView;
 import cn.ltwc.cft.view.MyListView;
+import cn.ltwc.cft.weex.WeexUtil;
+import cn.ltwc.utils.ToastUtil;
 import rx.functions.Action1;
 
 /**
@@ -59,7 +59,6 @@ import rx.functions.Action1;
  */
 
 public class HomeFragmentHelper {
-    private TextView ssqi, red1, red2, red3, red4, red5, red6, blue;// 双色球期号、红色球1~6、蓝色球
     public ImageView jumptoToday;
     private GestureDetector gestureDetector = null;
     private CalendarAdapter calV = null;
@@ -72,6 +71,8 @@ public class HomeFragmentHelper {
     public int year_c = 0;
     public int month_c = 0;
     public int day_c = 0;
+    public LinearLayout otherLayout;
+    private WeexUtil weexUtil;
     /**
      * 当前的年月，现在日历顶端
      */
@@ -95,14 +96,6 @@ public class HomeFragmentHelper {
 
     public void init(View view, Context context) {
         this.context = context;
-        ssqi = view.findViewById(R.id.ssq_qi);
-        red1 = view.findViewById(R.id.red_1);
-        red2 = view.findViewById(R.id.red_2);
-        red3 = view.findViewById(R.id.red_3);
-        red4 = view.findViewById(R.id.red_4);
-        red5 = view.findViewById(R.id.red_5);
-        red6 = view.findViewById(R.id.red_6);
-        blue = view.findViewById(R.id.blue);
         jumptoToday = view.findViewById(R.id.weather);
         gestureDetector = new GestureDetector(context, new MyGestureListener());
         flipper = view.findViewById(R.id.flipper);
@@ -112,6 +105,7 @@ public class HomeFragmentHelper {
         ji = view.findViewById(R.id.ji);
         myscrollview = view.findViewById(R.id.scrollview);
         myListView = view.findViewById(R.id.my_list_view);
+        otherLayout = view.findViewById(R.id.other_layout);
         //========================================================================
         bindView();
     }
@@ -142,6 +136,16 @@ public class HomeFragmentHelper {
                 chooseday = day_c;// 选中的日期为今天
             }
         });
+        initOtherLayout();
+    }
+
+    /**
+     * 加载其他布局
+     */
+    private void initOtherLayout() {
+        weexUtil = new WeexUtil(false, false, "otherLayout", new HashMap<String, Object>() {{
+        }}, otherLayout, (Activity) context);
+        weexUtil.fireFresh();
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -284,8 +288,14 @@ public class HomeFragmentHelper {
      * @param gvFlag gvFlag
      */
     public void enterNextMonth(int gvFlag) {
-        HomeFragmentHelper.getInstance().addGridView(); // 添加一个gridView
+        CalendarAdapter ctmep = new CalendarAdapter(context, jumpMonth + 1, jumpYear, year_c, month_c,
+                chooseday);
+        if (Integer.parseInt(ctmep.getShowYear()) >= 2100) {
+            ToastUtil.showMessage("往后的农历信息可能不正确，暂时不能进入哦~");
+            return;
+        }
         jumpMonth++; // 下一个月
+        addGridView(); // 添加一个gridView
         flushView(gvFlag, AnimationUtils.loadAnimation(context, R.anim.push_left_in),
                 AnimationUtils.loadAnimation(context, R.anim.push_left_out));
     }
@@ -329,8 +339,14 @@ public class HomeFragmentHelper {
      * @param gvFlag gvFlag
      */
     public void enterPrevMonth(int gvFlag) {
-        HomeFragmentHelper.getInstance().addGridView(); // 添加一个gridView
+        CalendarAdapter ctmep = new CalendarAdapter(context, jumpMonth - 1, jumpYear, year_c, month_c,
+                chooseday);
+        if (Integer.parseInt(ctmep.getShowYear()) < 1901) {
+            ToastUtil.showMessage("往前的农历信息可能不正确，暂时不能进入哦~");
+            return;
+        }
         jumpMonth--; // 上一个月
+        addGridView(); // 添加一个gridView
         flushView(gvFlag,
                 AnimationUtils.loadAnimation(context, R.anim.push_right_in),
                 AnimationUtils.loadAnimation(context, R.anim.push_right_out));
@@ -477,33 +493,6 @@ public class HomeFragmentHelper {
 
     }
 
-    public void getLot() {
-        APIService.getInstance(Constant.LOT_URL).getLot(new ProgressSubscriber<>(new Action1<Kaijiang>() {
-            @Override
-            public void call(Kaijiang kaijiang) {
-                setLot(kaijiang);
-            }
-        }));
-    }
-
-    /**
-     * 设置开奖信息
-     *
-     * @param kaijiang 开奖信息
-     */
-    private void setLot(Kaijiang kaijiang) {
-        ssqi.setText(String.format("-第%s期", kaijiang.getBack().get(0).getQh()));
-        String blueq = kaijiang.getBack().get(0).getLot().split("[#]")[1];// "+"是正则表达式的符号，所以需要完全匹配"[+]"
-        String red[] = (kaijiang.getBack().get(0).getLot().split("[#]")[0]).split("[,]");
-        red1.setText(red[0]);
-        red2.setText(red[1]);
-        red3.setText(red[2]);
-        red4.setText(red[3]);
-        red5.setText(red[4]);
-        red6.setText(red[5]);
-        blue.setText(blueq);
-    }
-
     public void getLayout(String cityCode) {
         APIService.getInstance(Constant.GET_XIAO_MI_LAYOUT2, 1).getLayout(cityCode, new ProgressSubscriber<>(new Action1<Object>() {
             @Override
@@ -516,48 +505,9 @@ public class HomeFragmentHelper {
                 }
             }
         }));
-    }
-
-    public void getWeather(final LocationInfo locationInfo) {
-        APIService.getInstance(Constant.GET_WEATHER, APIService.backStringData).anyGet(new HashMap<String, Object>() {{
-            put("city", locationInfo.getDistrict());
-        }}, null, new ProgressSubscriber<>(new Action1<Object>() {
-            @Override
-            public void call(Object layout) {
-                try {
-                    JSONObject object = new JSONObject((String) layout);
-                    setWeather(locationInfo, object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }));
 
     }
 
-    /**
-     * 设置天气信息
-     *
-     * @param object 天气信息
-     */
-    private void setWeather(LocationInfo locationInfo, JSONObject object) {
-        try {
-            JSONObject data = object.optJSONObject("data");
-            String province = data.optJSONObject("city").optString("pname");
-            JSONObject condition = data.optJSONObject("condition");
-            String info = condition.optString("condition");
-            String temperature = condition.optString("temp");
-            StringBuilder buffer = new StringBuilder();
-            String street = locationInfo.getStreet();
-            if (TextUtils.isEmpty(street)) {
-                street = locationInfo.getRoad();
-            }
-            buffer.append(locationInfo.getAddress()).append(" ").append(locationInfo.getCityName()).append(" ").append(locationInfo.getDistrict()).append(" ").append(street).append(" ").append(info).append(" ").append(temperature).append("℃");
-            //jumptoToday.setText(buffer.toString());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 设置小米的指数布局
@@ -594,7 +544,7 @@ public class HomeFragmentHelper {
                         }
                         HeadData headData = new HeadData(wtrHeadData.optString("summary"), wtrHeadData.optString("imgUrl"), wtrHeadData.optString("title"), wtrHeadData.optString("iconImgUrl"));
                         Link link = new Link(wtrLink.optString("channelId"), wtrLink.optString("type"), wtrLink.optString("url"));
-                        XiaomiZhishuList bean = new XiaomiZhishuList(image, summary, title, headData, link);
+                        XiaomiZhishuList bean = new XiaomiZhishuList(image, summary, t, headData, link);
                         listZhishu.add(bean);
                     }
                 }

@@ -4,11 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +12,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -24,6 +20,7 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.data.LunarCalendar;
 import cn.ltwc.cft.data.SpecialCalendar;
+import cn.ltwc.cft.view.MarqueeView;
 
 /**
  * TODO:日历GridView中的每一个item显示的TextView
@@ -146,37 +143,29 @@ public class CalendarAdapter extends BaseAdapter {
                     R.layout.calendar_item, null);
             convertView.setBackgroundColor(0Xffffff);// 设置背景
             holder = new Holder();
-            holder.textView = (TextView) convertView.findViewById(R.id.tvtext);
+            holder.yangli = (TextView) convertView.findViewById(R.id.tv_ri);
+            holder.nongli = (MarqueeView) convertView.findViewById(R.id.tv_ni);
             holder.bg = convertView.findViewById(R.id.bg);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-
         String d = dayNumber[position].split("\\.")[0];
         String dv = dayNumber[position].split("\\.")[1];
-
-        SpannableString sp = new SpannableString(d + "\n" + dv);
-        // 设置字体
-        sp.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0,
-                d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sp.setSpan(new RelativeSizeSpan(1.2f), 0, d.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (!TextUtils.isEmpty(dv)) {
-            sp.setSpan(new RelativeSizeSpan(0.65f), d.length() + 1,
-                    dayNumber[position].length(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        // sp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 14, 16,
-        // Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        holder.textView.setText(sp);
-        holder.textView.setTextColor(Color.GRAY);
+        holder.yangli.setText(d);
+        holder.nongli.setData(new ArrayList<String>(Arrays.asList(dv.split("\n"))));
+        holder.yangli.setTextColor(Color.GRAY);
+        holder.nongli.setTextColor(Color.GRAY);
 
         if (position < daysOfMonth + dayOfWeek && position >= dayOfWeek) {
             // 当前月信息显示
-            holder.textView.setTextColor(Color.BLACK);// 当月字体设黑
+            holder.yangli.setTextColor(Color.BLACK);
+            holder.nongli.setTextColor(Color.BLACK);
+            //holder.textView.setTextColor(Color.BLACK);// 当月字体设黑
             if (position % 7 == 0 || position % 7 == 6) {
-                holder.textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
+                holder.yangli.setTextColor(Color.rgb(238, 113, 113));
+                holder.nongli.setTextColor(Color.rgb(238, 113, 113));
+                //holder.textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
             }
             if (currentFlag_ == position) {
                 holder.bg.setBackgroundResource(R.drawable.select_bg);
@@ -192,9 +181,9 @@ public class CalendarAdapter extends BaseAdapter {
                 for (int j = 0; j < dayNumber.length; j++) {
                     String dx = dayNumber[j].split("\\.")[1];
                     String lh = Constant.FANGJIAHOLIDAY[i];
-                    if (lh.contains(dx)) {
+                    if (dx.contains(lh)) {
                         list.add(j);
-                        if (lh.contains("春节") || lh.contains("皇上生辰") || lh.contains("国庆")) {// 如果包含春节，则后面的两天跟着放假
+                        if (lh.contains("春节") || lh.contains("皇上生辰") || lh.contains("皇后生辰") || lh.contains("国庆")) {// 如果包含春节，则后面的两天跟着放假
                             // 如果包含皇上生辰，则后面的七天跟着放假
                             // 如果是国庆，则后面七天也放假
                             list.add(j + 1);
@@ -208,14 +197,14 @@ public class CalendarAdapter extends BaseAdapter {
                     }
                 }
             }
-            if (list != null) {
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i) == position) {
-                        // 设置中国传统节假日
-                        holder.textView.setTextColor(Color.rgb(238, 113, 113));// 中国传统节假日字体设红
-                    }
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == position) {
+                    // 设置中国传统节假日
+                    holder.yangli.setTextColor(Color.rgb(238, 113, 113));
+                    holder.nongli.setTextColor(Color.rgb(238, 113, 113));
                 }
             }
+
             // ===========================================
         } else {
 
@@ -361,7 +350,9 @@ public class CalendarAdapter extends BaseAdapter {
     }
 
     class Holder {
-        TextView textView;
+        //TextView textView;
+        TextView yangli;
+        MarqueeView nongli;
         View bg;
     }
 }
