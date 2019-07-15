@@ -11,10 +11,11 @@
 
 #### 2、首页
 <div>
-   <img src="http://imengu.cn/Ahuangshang/img/github/mainOne.jpg" width = 30% height = 30% margin = 1% />
-   <img src="http://imengu.cn/Ahuangshang/img/github/mainTwo.jpg" width = 30% height = 30% margin = 1% />
-   <img src="http://imengu.cn/Ahuangshang/img/github/mainThree.jpg" width = 30% height = 30% margin = 1% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/mainOne.jpg" width = 30% height = 30% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/mainTwo.jpg" width = 30% height = 30% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/mainThree.jpg" width = 30% height = 30% />
 </div>
+
 <div>
    <img src="http://imengu.cn/Ahuangshang/img/github/mainFour.jpg" width = 30% height = 30% />
    <img src="http://imengu.cn/Ahuangshang/img/github/ssq.png" width = 30% height = 30% />
@@ -48,9 +49,9 @@
    
 #### 8、电视直播
 <div>
+   <img src="http://imengu.cn/Ahuangshang/img/github/liveThree.png" width = 30% height = 30% />
    <img src="http://imengu.cn/Ahuangshang/img/github/liveOne.png" width = 30% height = 30% />
    <img src="http://imengu.cn/Ahuangshang/img/github/liveTwo.png" width = 30% height = 30% />
-   <img src="http://imengu.cn/Ahuangshang/img/github/liveThree.png" width = 30% height = 30% />
 </div>
    
 ### 如果喜欢的话请start一下，谢谢！
