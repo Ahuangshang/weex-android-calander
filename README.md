@@ -43,7 +43,7 @@
 #### 7、强大的图片搜素功能
 <div>
    <img src="http://imengu.cn/Ahuangshang/img/github/picone.png" width = 30% height = 30% />
-   <img src="http://imengu.cn/Ahuangshang/img/github/pictwo.png" width = 30% height = 30% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/pic2.png" width = 30% height = 30% />
    <img src="http://imengu.cn/Ahuangshang/img/github/picThree.png" width = 30% height = 30% />
 </div>
    
