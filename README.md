@@ -34,7 +34,7 @@
 </div>
    
 #### 5、更多
- <img src="http://imengu.cn/Ahuangshang/img/github/more.jpg" width = 30% height = 30% />
+ <img src="http://imengu.cn/Ahuangshang/img/github/More.jpg" width = 30% height = 30% />
 
 
 #### 6、自定义分享弹窗
@@ -42,8 +42,8 @@
 
 #### 7、强大的图片搜素功能
 <div>
-   <img src="http://imengu.cn/Ahuangshang/img/github/picOne.png" width = 30% height = 30% />
-   <img src="http://imengu.cn/Ahuangshang/img/github/picTwo.png" width = 30% height = 30% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/picone.png" width = 30% height = 30% />
+   <img src="http://imengu.cn/Ahuangshang/img/github/pictwo.png" width = 30% height = 30% />
    <img src="http://imengu.cn/Ahuangshang/img/github/picThree.png" width = 30% height = 30% />
 </div>
    
